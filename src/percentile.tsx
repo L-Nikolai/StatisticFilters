@@ -4,7 +4,7 @@ import styles from './percentile.module.css';
 
 const Percentile = () => {
 
-     const [firstInput, setFirstInput] = useState(0)
+     
      const [secondInput, setSecondInput] = useState(100)
 
      const [isValid, changeIsValid] = useState(true)
@@ -18,10 +18,10 @@ const Percentile = () => {
           
           
           if (numValue >0 && numValue <100){
-           setFirstInput(numValue)
+           
           } 
           if  (value === ""){
-               setFirstInput(0)
+              
           }
      }
 
@@ -47,14 +47,7 @@ const Percentile = () => {
          return <h2> Success</h2>  
      }
 
-     const CheckError = () => {
-          if (firstInput > secondInput) {
-               
-            return <Error/>   
-          } else {
-               return <Success/>
-          }
-     }
+     
      
 
     return ( 
@@ -62,15 +55,16 @@ const Percentile = () => {
           
             < >
                
-                <input className = {styles.percentile + " " + (isValid?"":styles.invalid)} 
-                    value={firstInput}
+                <input className = {styles.percentile + " " + (isValid?"":styles.invalid)}
+                    type='number' 
+                    defaultValue={0}
                     onChange = {onFirstChange}
                     aria-label="inputone"/>
                  <input className = {styles.percentile + " " + (isValid?"":styles.invalid)}
                     value={secondInput}
                     onChange = {onSecondChange}
                     aria-label="inputsecond"/>
-                <CheckError/>  
+                 
 
                    
             </>   
