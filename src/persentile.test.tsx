@@ -47,11 +47,9 @@ describe("Percentile first component", () => {
       expect.stringContaining("invalid")
     );
   });
-
 });
 
 describe("Percentile second component", () => {
-
   test("should be rendered", () => {
     render(<Percentile />);
     const percentileelement = screen.getByLabelText(/inputsecond/i);
@@ -96,19 +94,17 @@ describe("Percentile second component", () => {
       expect.stringContaining("invalid")
     );
   });
-
 });
 
 describe("Checked inputs ", () => {
-  test("input1 > input2", () => {
+  test("input1 > input2 ?", () => {
     render(<Percentile />);
-    const percentileelement = screen.getByLabelText(/inputsecond/i);
+    const percentileelement = screen.getByLabelText(/inputfirst/i);
 
-    
     fireEvent.change(percentileelement, { target: { value: "91" } });
 
     expect((percentileelement as HTMLInputElement).className).toEqual(
       expect.stringContaining("invalid")
     );
-  })
-})  
+  });
+});

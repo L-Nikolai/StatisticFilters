@@ -2,35 +2,31 @@ import React, { useState } from "react";
 import styles from "./percentile.module.css";
 
 const Percentile = () => {
-  
-
   const [isValid, changeIsValid] = useState(true);
 
   const onFirstChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     if (parseFloat(value) >= 0 && parseFloat(value) < 100) {
-    changeIsValid(true) }
-    else {
-         changeIsValid(false)
+      changeIsValid(true);
+    } else {
+      changeIsValid(false);
     }
-    
   };
 
   const onSecondChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    
+
     if (parseFloat(value) >= 0 && parseFloat(value) <= 100) {
-     changeIsValid(true) 
-    } else{
-     changeIsValid(false) 
+      changeIsValid(true);
+    } else {
+      changeIsValid(false);
     }
   };
 
-  if (onFirstChange >= onSecondChange){
-     changeIsValid(false) 
+  if (onFirstChange >= onSecondChange) {
+    changeIsValid(false);
   }
 
- 
   return (
     <>
       <input
