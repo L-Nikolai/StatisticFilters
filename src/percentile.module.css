@@ -1,8 +1,8 @@
-.percentile{
-    font-size: 13px;
+.percentile {
+  font-size: 13px;
 }
 
 .invalid {
-   border: 1px solid red;
-   outline-color: red;
+  border: 1px solid red;
+  outline-color: red;
 }
