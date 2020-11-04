@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useCallback, useState} from 'react';
+import Check from './chek'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+const App = ()=>{
+  
+  const [percentile, setPercentile] = useState(true)
+
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement> ) =>{
+      const { value } = event.target
+      
+        if (value === "Percentile"){  
+          setPercentile(true)
+        } else setPercentile(false)
+    }, []
+  )
+
+
+   
+
+  return(
+
+    <>
+  
+      <select 
+      onChange={handleChange}
+      defaultValue="Percentile"
+      > 
+        <option  value="Percentile"> Percentile </option>
+        <option  value="TopN"> TopN </option>
+      </select>
+        <Check
+        percentile={percentile}
+       
+        />
+   </>
+  
+  )
 }
 
 export default App;
