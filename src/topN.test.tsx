@@ -9,7 +9,7 @@ describe("Top N component", () => {
 
     expect(topNelement).toBeInTheDocument();
     expect((topNelement as HTMLInputElement).className).toEqual(
-      expect.stringContaining("top")
+      expect.stringContaining("input_stile")
     );
   });
 

@@ -5,17 +5,17 @@ import Percentile from "./percentile";
 describe("Percentile first component", () => {
   test("should be rendered", () => {
     render(<Percentile />);
-    const percentileelement = screen.getByLabelText(/inputsecond/i);
+    const percentileelement = screen.getByLabelText(/inputfirst/i);
 
     expect(percentileelement).toBeInTheDocument();
     expect((percentileelement as HTMLInputElement).className).toEqual(
-      expect.stringContaining("percentile")
+      expect.stringContaining("input_stile ")
     );
   });
 
   test("should change value", () => {
     render(<Percentile />);
-    const percentileelement = screen.getByLabelText(/inputsecond/i);
+    const percentileelement = screen.getByLabelText(/inputfirst/i);
 
     fireEvent.change(percentileelement, { target: { value: "10" } });
 
@@ -27,7 +27,7 @@ describe("Percentile first component", () => {
 
   test("should invalide state when value isnegative", () => {
     render(<Percentile />);
-    const percentileelement = screen.getByLabelText(/inputsecond/i);
+    const percentileelement = screen.getByLabelText(/inputfirst/i);
 
     fireEvent.change(percentileelement, { target: { value: "-6" } });
 
@@ -38,7 +38,7 @@ describe("Percentile first component", () => {
 
   test("should reset invalid state when value is valid", () => {
     render(<Percentile />);
-    const percentileelement = screen.getByLabelText(/inputsecond/i);
+    const percentileelement = screen.getByLabelText(/inputfirst/i);
 
     fireEvent.change(percentileelement, { target: { value: "-5" } });
     fireEvent.change(percentileelement, { target: { value: "6" } });
@@ -56,7 +56,7 @@ describe("Percentile second component", () => {
 
     expect(percentileelement).toBeInTheDocument();
     expect((percentileelement as HTMLInputElement).className).toEqual(
-      expect.stringContaining("percentile")
+      expect.stringContaining("input_stile ")
     );
   });
 
@@ -100,8 +100,10 @@ describe("Checked inputs ", () => {
   test("input1 > input2 ?", () => {
     render(<Percentile />);
     const percentileelement = screen.getByLabelText(/inputfirst/i);
+    const percentileelementsecond = screen.getByLabelText(/inputsecond/i);
 
     fireEvent.change(percentileelement, { target: { value: "91" } });
+    fireEvent.change(percentileelementsecond, { target: { value: "88" } });
 
     expect((percentileelement as HTMLInputElement).className).toEqual(
       expect.stringContaining("invalid")
