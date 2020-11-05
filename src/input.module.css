@@ -1,0 +1,9 @@
+.input_stile {
+    font-size: 13px;
+  }
+  
+  .invalid {
+    border: 1px solid red;
+    outline-color: red;
+  }
+  
