@@ -7,6 +7,7 @@ const App = () => {
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
       const { value } = event.target;
+      console.log(value);
 
       if (value === "Percentile") {
         setPercentile(true);
@@ -17,9 +18,17 @@ const App = () => {
 
   return (
     <>
-      <select onChange={handleChange} defaultValue="Percentile">
-        <option value="Percentile"> Percentile </option>
-        <option value="TopN"> TopN </option>
+      <select
+        onChange={handleChange}
+        defaultValue="Percentile"
+        aria-label="select"
+      >
+        <option value="Percentile" aria-label="percentile">
+          Percentile
+        </option>
+        <option value="TopN" aria-label="topn">
+          TopN
+        </option>
       </select>
       <Check percentile={percentile} />
     </>

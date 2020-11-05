@@ -1,46 +1,47 @@
 import React, { useState, useCallback } from "react";
-import Input from './input'
+import Input from "./input";
 
-const checkRange = (numValue: number):boolean =>  numValue >= 0 && numValue <= 100
-const getValue = (event: React.ChangeEvent<HTMLInputElement>): number=> {
+const checkRange = (numValue: number): boolean =>
+  numValue >= 0 && numValue <= 100;
+const getValue = (event: React.ChangeEvent<HTMLInputElement>): number => {
   const { value } = event.target;
-   const numValue = parseFloat(value);
-   return numValue
-}
+  const numValue = parseFloat(value);
+  return numValue;
+};
 
 const Percentile = () => {
   const [isValid, changeIsValid] = useState(true);
   const [[firstValue, secondValue], changeValues] = useState([0, 100]);
 
-  const onFirstChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {   
-      const numValue = getValue(event)
+  const onFirstChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const numValue = getValue(event);
 
-      const inRange = checkRange(numValue)
-      changeIsValid(inRange)
+      const inRange = checkRange(numValue);
+      changeIsValid(inRange);
 
       if (numValue >= secondValue) {
         changeIsValid(false);
-      } 
+      }
       changeValues([numValue, secondValue]);
     },
     [firstValue, secondValue]
   );
 
-  const onSecondChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-      const numValue = getValue(event)
-      
-      const inRange = checkRange(numValue)
-      changeIsValid(inRange)
+  const onSecondChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const numValue = getValue(event);
+
+      const inRange = checkRange(numValue);
+      changeIsValid(inRange);
 
       if (firstValue >= numValue) {
         changeIsValid(false);
-      } 
+      }
       changeValues([firstValue, numValue]);
     },
     [firstValue, secondValue]
   );
-
-    
 
   return (
     <>
