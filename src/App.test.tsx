@@ -3,17 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
 
 describe("App components", () => {
-  test("should not rendered percentile", () => {
-    render(<App />);
-    const percentileelement = screen.getByLabelText(/select/i);
-
-    fireEvent.change(percentileelement, { target: { value: "TopN" } });
-
-    expect((percentileelement as HTMLInputElement).value).not.toEqual(
-      "Percentile"
-    );
-  });
-
+  
   test("should  render topn", () => {
     render(<App />);
     const percentileelement = screen.getByLabelText(/select/i);
