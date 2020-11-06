@@ -3,9 +3,8 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import StatisticFilters from "./statistic-filter";
 
 describe("StatisticFilters components", () => {
-  
   test("should  render topn", () => {
-    render(<StatisticFilters/>);
+    render(<StatisticFilters />);
     const percentileelement = screen.getByLabelText(/select/i);
 
     fireEvent.change(percentileelement, { target: { value: "TopN" } });
@@ -21,5 +20,4 @@ describe("StatisticFilters components", () => {
 
     expect((percentileelement as HTMLInputElement).value).toEqual("Percentile");
   });
-
 });

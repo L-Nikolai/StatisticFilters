@@ -7,7 +7,6 @@ const StatisticFilters = () => {
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
       const { value } = event.target;
-      
 
       if (value === "Percentile") {
         setPercentile(true);
