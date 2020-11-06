@@ -1,11 +1,11 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import App from "./App";
+import StatisticFilters from "./statistic-filter";
 
-describe("App components", () => {
+describe("StatisticFilters components", () => {
   
   test("should  render topn", () => {
-    render(<App />);
+    render(<StatisticFilters/>);
     const percentileelement = screen.getByLabelText(/select/i);
 
     fireEvent.change(percentileelement, { target: { value: "TopN" } });
@@ -14,7 +14,7 @@ describe("App components", () => {
   });
 
   test("should  render percentile", () => {
-    render(<App />);
+    render(<StatisticFilters />);
     const percentileelement = screen.getByLabelText(/select/i);
 
     fireEvent.change(percentileelement, { target: { value: "Percentile" } });
