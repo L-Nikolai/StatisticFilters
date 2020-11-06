@@ -22,4 +22,14 @@ describe("App components", () => {
 
     expect((percentileelement as HTMLInputElement).value).toEqual("TopN");
   });
+
+  test("should  render percentile", () => {
+    render(<App />);
+    const percentileelement = screen.getByLabelText(/select/i);
+
+    fireEvent.change(percentileelement, { target: { value: "Percentile" } });
+
+    expect((percentileelement as HTMLInputElement).value).toEqual("Percentile");
+  });
+
 });

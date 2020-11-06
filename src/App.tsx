@@ -7,7 +7,7 @@ const App = () => {
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
       const { value } = event.target;
-      console.log(value);
+      
 
       if (value === "Percentile") {
         setPercentile(true);
