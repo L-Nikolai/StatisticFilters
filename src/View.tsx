@@ -1,12 +1,23 @@
+import { resolveSoa } from "dns";
 import React from "react";
 
 const View = () => {
-  const data = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  const getData = (colums: number)=> {
+      const date = [];
+      
+      for (let i=0; i<colums; i++){
+          date.push(i+1)
+      
+      }
 
-  const CellsList = (props: { data: number[] }): React.ReactElement => {
+        return date
+  };
+ 
+
+  const CellsList = (props: { data: number[]}): React.ReactElement => {
     const data = props.data;
-    const renderCell = data.map((cell: number) => (
-      <td key={cell.toString()}>{cell}</td>
+    const renderCell = data.map((item: number)=> (
+      <td key = {item}>{item}</td>
     ));
     return <tr>{renderCell}</tr>;
   };
@@ -14,8 +25,8 @@ const View = () => {
   const Board = () => {
     return (
       <>
-        {data.map(() => {
-          return <CellsList data={data} />;
+        {getData(6).map(() => {
+          return <CellsList  data={getData(5)} />;
         })}
       </>
     );
