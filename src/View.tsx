@@ -1,40 +1,38 @@
 import { resolveSoa } from "dns";
 import React from "react";
+import reportWebVitals from "./reportWebVitals";
+
+const Row = (props: { data: number[]}): React.ReactElement => {
+    
+  const data = props.data;
+  const renderCell = data.map((item: number)=> (
+    <td key = {item}>{item}</td>
+  ));
+  return <tr>{renderCell}</tr>;
+};
 
 const View = () => {
-  const getData = (colums: number)=> {
-      const date = [];
+  const getData = (colums: number, rows:number): number[][]=> {
+      const date: number[][] = []
       
-      for (let i=0; i<colums; i++){
-          date.push(i+1)
-      
-      }
+            
+      for (let rowIndex=0; rowIndex<colums; rowIndex++){
+          date[rowIndex] = []
+            for (let columIndex=0; columIndex<rows; columIndex++ ){
 
+          date[rowIndex][columIndex] = (rowIndex*10)+(columIndex+1)
+       }
+      } 
+       
         return date
   };
  
-
-  const CellsList = (props: { data: number[]}): React.ReactElement => {
-    const data = props.data;
-    const renderCell = data.map((item: number)=> (
-      <td key = {item}>{item}</td>
-    ));
-    return <tr>{renderCell}</tr>;
-  };
-
-  const Board = () => {
-    return (
-      <>
-        {getData(6).map(() => {
-          return <CellsList  data={getData(5)} />;
-        })}
-      </>
-    );
-  };
-
+  const data = getData(10,10)
   return (
     <table>
-      <Board />
+       {data.map((item:number[]) => {
+        return <Row data={item}/>
+        })}
     </table>
   );
 };
