@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import StatisticFilters from "./statistic-filter";
 import View from "./View";
 
 const App = () => {
+  const [topN] = useState(10)
   return (
     <>
-      <View />
+      <View topN ={topN}/>
       <StatisticFilters />
     </>
   );
