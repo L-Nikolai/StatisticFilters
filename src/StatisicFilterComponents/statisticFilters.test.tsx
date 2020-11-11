@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import StatisticFilters from "./statistic-filter";
+import StatisticFilters from "./statisticFilters";
 
 describe("StatisticFilters components", () => {
   test("should  render topn", () => {

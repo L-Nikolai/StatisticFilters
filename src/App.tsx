@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import StatisticFilters from "./statistic-filter";
-import View from "./View";
+import StatisticFilters from "./StatisicFilterComponents/statisticFilters";
+import View from "./tableComponents/View";
 
 const App = () => {
   const [topN] = useState(10);

@@ -1,6 +1,6 @@
 import { resolveSoa } from "dns";
 import React from "react";
-import reportWebVitals from "./reportWebVitals";
+import reportWebVitals from "../reportWebVitals";
 import Chance from "chance";
 import Row from "./Row";
 
