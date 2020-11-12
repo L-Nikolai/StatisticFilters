@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import styles from "../style.module.css";
 
 const sortN = (firstData:number[], secondData:number[]):boolean[] => {
@@ -16,18 +16,28 @@ const sortN = (firstData:number[], secondData:number[]):boolean[] => {
     
     return sorted
   };
+
+  
+    
 interface Row {
     topNSort: number [];
     data : number[];
+    handleClick : MouseEventHandler
+    changeTopN: (value:number) => void
   }
 
 const Row = (props: Row ): React.ReactElement => {
+    
     const data = props.data;
     const topNSort = props.topNSort;
     const colored = sortN(data.flat(),topNSort)
     
     const renderCell = data.map((item, index) => (  
-      <td style={{ color: colored[index] ? "blue" : "grey" }} className={styles.cell} key={index}>
+      <td 
+      style={{ color: colored[index] ? "blue" : "grey" }} 
+      className={styles.cell} 
+      key={index}
+      onClick={props.handleClick}>
         {item}
       </td>
     ));

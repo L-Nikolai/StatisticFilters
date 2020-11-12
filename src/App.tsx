@@ -6,9 +6,9 @@ const App = () => {
   const [topN,changeTopN] = useState(10);
 
   return (
-    <>
-      <View topN={topN} />
-      <StatisticFilters changeTopN={changeTopN} />
+    <> 
+      <View topN={topN} changeTopN={changeTopN} />
+      <StatisticFilters  topN={topN} changeTopN={changeTopN} />
     </>
   );
 };
