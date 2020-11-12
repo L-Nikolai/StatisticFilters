@@ -1,7 +1,10 @@
 import React, { useCallback, useState } from "react";
 import Check from "./chek";
 
-const StatisticFilters = () => {
+interface StatisticFilters {
+  changeTopN: (value:number) => void
+}
+const StatisticFilters = (prop : StatisticFilters) => {
   const [percentile, setPercentile] = useState(true);
 
   const handleChange = useCallback(
@@ -29,7 +32,7 @@ const StatisticFilters = () => {
           TopN
         </option>
       </select>
-      <Check percentile={percentile} />
+      <Check percentile={percentile} changeTopN={prop.changeTopN}/>
     </>
   );
 };

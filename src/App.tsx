@@ -3,11 +3,12 @@ import StatisticFilters from "./StatisicFilterComponents/statisticFilters";
 import View from "./tableComponents/View";
 
 const App = () => {
-  const [topN] = useState(10);
+  const [topN,changeTopN] = useState(10);
+
   return (
     <>
       <View topN={topN} />
-      <StatisticFilters />
+      <StatisticFilters changeTopN={changeTopN} />
     </>
   );
 };
