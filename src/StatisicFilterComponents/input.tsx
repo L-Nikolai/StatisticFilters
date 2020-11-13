@@ -5,9 +5,9 @@ interface Input {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
   value?: number;
-  defaultValue?: number
+  defaultValue?: number;
 }
-const Input = ({ isValid, label, onChange ,value, defaultValue}: Input) => {
+const Input = ({ isValid, label, onChange, value, defaultValue }: Input) => {
   return (
     <input
       className={styles.input_stile + " " + (isValid ? "" : styles.invalid)}
@@ -15,7 +15,7 @@ const Input = ({ isValid, label, onChange ,value, defaultValue}: Input) => {
       aria-label={label}
       onChange={onChange}
       defaultValue={defaultValue}
-      value = {value}
+      value={value}
     />
   );
 };

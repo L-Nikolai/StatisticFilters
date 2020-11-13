@@ -1,19 +1,18 @@
 import React, { useCallback, useState } from "react";
 import Input from "./input";
 interface TopN {
-  
-  changeValue : (value:number) => void
-  value:number
+  changeValue: (value: number) => void;
+  value: number;
 }
 
 const TopN = (prop: TopN) => {
   const [isValid, changeIsValid] = useState(true);
 
   const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const {value} = event.target;
-    prop.changeValue (parseInt(value, 10))
+    const { value } = event.target;
+    prop.changeValue(parseInt(value, 10));
     if (parseInt(value, 10) >= 1) {
-      changeIsValid(true)
+      changeIsValid(true);
     } else {
       changeIsValid(false);
     }

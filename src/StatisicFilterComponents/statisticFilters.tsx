@@ -1,21 +1,25 @@
 import React, { useCallback, useState } from "react";
-import Check from "./chek";
 import TopN from "./topN";
+import Percentile from "./percentile";
 
 interface StatisticFilters {
-  changeTopN: (value:number) => void
-  topN : number
+  changeTopN: (value: number) => void;
+  topN: number;
 }
-const StatisticFilters = (prop : StatisticFilters) => {
-  const [percentile, setPercentile] = useState(true);
+type statisticFilterType = "percentile" | "topN";
+
+const StatisticFilters = (prop: StatisticFilters) => {
+  const [staticFilter, setStaticFilter] = useState<statisticFilterType>(
+    "percentile"
+  );
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
       const { value } = event.target;
 
-      if (value === "Percentile") {
-        setPercentile(true);
-      } else setPercentile(false);
+      if (value === "percentile") {
+        setStaticFilter("percentile");
+      } else setStaticFilter("topN");
     },
     []
   );
@@ -24,17 +28,21 @@ const StatisticFilters = (prop : StatisticFilters) => {
     <>
       <select
         onChange={handleChange}
-        defaultValue="Percentile"
+        defaultValue="percentile"
         aria-label="select"
       >
-        <option value="Percentile" aria-label="percentile">
+        <option value="percentile" aria-label="percentile">
           Percentile
         </option>
-        <option value="TopN" aria-label="topn">
+        <option value="topN" aria-label="topn">
           TopN
         </option>
-      </select>
-      <Check percentile={percentile} topN={prop.topN} changeTopN={prop.changeTopN} />
+      </select>{" "}
+      {staticFilter === "percentile" ? (
+        <Percentile />
+      ) : (
+        <TopN value={prop.topN} changeValue={prop.changeTopN} />
+      )}
     </>
   );
 };
