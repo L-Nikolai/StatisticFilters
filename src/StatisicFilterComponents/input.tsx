@@ -4,10 +4,10 @@ interface Input {
   isValid: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
-  topN?: number;
+  value?: number;
   defaultValue?: number
 }
-const Input = ({ isValid, label, onChange ,topN, defaultValue}: Input) => {
+const Input = ({ isValid, label, onChange ,value, defaultValue}: Input) => {
   return (
     <input
       className={styles.input_stile + " " + (isValid ? "" : styles.invalid)}
@@ -15,7 +15,7 @@ const Input = ({ isValid, label, onChange ,topN, defaultValue}: Input) => {
       aria-label={label}
       onChange={onChange}
       defaultValue={defaultValue}
-      value = {topN}
+      value = {value}
     />
   );
 };

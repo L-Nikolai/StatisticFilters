@@ -53,7 +53,6 @@ const View = (props: View) => {
           key={index} 
           data={rowData}  
           topNSort={topNSort.slice(0, topN)} 
-          changeTopN={props.changeTopN}
           handleClick={handleClick} />;
         })}
       </table>

@@ -10,7 +10,7 @@ interface Check {
 
 const Check = (prop: Check ) => {
   return prop.percentile ? 
-  <Percentile  /> : <TopN topN={prop.topN} changeTopN={prop.changeTopN} />;
+  <Percentile  /> : <TopN value={prop.topN} changeValue={prop.changeTopN} />;
 };
 
 export default Check;

@@ -23,7 +23,7 @@ interface Row {
     topNSort: number [];
     data : number[];
     handleClick : MouseEventHandler
-    changeTopN: (value:number) => void
+    
   }
 
 const Row = (props: Row ): React.ReactElement => {
