@@ -1,25 +1,23 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import TopN from "./topN";
 import Percentile from "./percentile";
 
+export type statisticFilterType = "percentile" | "topN";
 interface StatisticFilters {
   changeTopN: (value: number) => void;
   topN: number;
+  statisticFilter: string;
+  setStatisticFilter: (value: statisticFilterType) => void;
 }
-type statisticFilterType = "percentile" | "topN";
 
 const StatisticFilters = (prop: StatisticFilters) => {
-  const [staticFilter, setStaticFilter] = useState<statisticFilterType>(
-    "percentile"
-  );
-
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
       const { value } = event.target;
 
       if (value === "percentile") {
-        setStaticFilter("percentile");
-      } else setStaticFilter("topN");
+        prop.setStatisticFilter("percentile");
+      } else prop.setStatisticFilter("topN");
     },
     []
   );
@@ -38,7 +36,7 @@ const StatisticFilters = (prop: StatisticFilters) => {
           TopN
         </option>
       </select>{" "}
-      {staticFilter === "percentile" ? (
+      {prop.statisticFilter === "percentile" ? (
         <Percentile />
       ) : (
         <TopN value={prop.topN} changeValue={prop.changeTopN} />

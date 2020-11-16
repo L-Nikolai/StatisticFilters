@@ -2,22 +2,38 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import StatisticFilters from "./statisticFilters";
 
+const setStatisticFilter = jest.fn();
+
 describe("StatisticFilters components", () => {
   test("should  render topn", () => {
-    render(<StatisticFilters />);
+    render(
+      <StatisticFilters
+        changeTopN={() => {}}
+        topN={10}
+        statisticFilter="topN"
+        setStatisticFilter={setStatisticFilter}
+      />
+    );
     const percentileelement = screen.getByLabelText(/select/i);
 
-    fireEvent.change(percentileelement, { target: { value: "TopN" } });
+    fireEvent.change(percentileelement, { target: { value: "topN" } });
 
-    expect((percentileelement as HTMLInputElement).value).toEqual("TopN");
+    expect(setStatisticFilter.mock.calls[0][0]).toEqual("topN");
   });
 
   test("should  render percentile", () => {
-    render(<StatisticFilters />);
+    render(
+      <StatisticFilters
+        changeTopN={() => {}}
+        topN={10}
+        statisticFilter="percentile"
+        setStatisticFilter={setStatisticFilter}
+      />
+    );
     const percentileelement = screen.getByLabelText(/select/i);
 
-    fireEvent.change(percentileelement, { target: { value: "Percentile" } });
+    fireEvent.change(percentileelement, { target: { value: "percentile" } });
 
-    expect((percentileelement as HTMLInputElement).value).toEqual("Percentile");
+    expect(setStatisticFilter.mock.calls[0][0]).toEqual("percentile");
   });
 });

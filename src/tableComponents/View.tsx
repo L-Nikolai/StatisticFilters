@@ -4,6 +4,22 @@ import reportWebVitals from "../reportWebVitals";
 import Chance from "chance";
 import Row from "./Row";
 
+const sortN = (firstData: number[], secondData: number[]): boolean[] => {
+  const sorted = [];
+
+  for (let i = 0; i < firstData.length; i++) {
+    let havedEquelsvalue = false;
+
+    for (let j = 0; j < secondData.length; j++) {
+      if (firstData[i] === secondData[j]) {
+        havedEquelsvalue = true;
+      }
+    }
+    sorted.push(havedEquelsvalue);
+  }
+
+  return sorted;
+};
 const get2DData = (colums: number, rows: number): number[][] => {
   const date: number[][] = [];
 
@@ -28,7 +44,9 @@ const data2D = get2DData(10, 10);
 
 const View = (props: View) => {
   const topN = props.topN;
-  const topNSort = data2D.flat().sort((a, b) => b - a);
+  const data = data2D.flat();
+  const topNSort = data.slice().sort((a, b) => b - a);
+  const sortedArr = topNSort.slice(0, topN);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     const value = event.currentTarget.innerText;
@@ -50,17 +68,19 @@ const View = (props: View) => {
   return (
     <>
       <table>
-        {data2D.map((rowData, index) => {
-          return (
-            <Row
-              key={index}
-              data={rowData}
-              sortedArr={topNSort.slice(0, topN)}
-              handleClick={handleClick}
-              dblHadleClick={dblHadleClick}
-            />
-          );
-        })}
+        <tbody>
+          {data2D.map((rowData, index) => {
+            return (
+              <Row
+                key={index}
+                data={rowData}
+                colored={sortN(rowData, sortedArr)}
+                handleClick={handleClick}
+                dblHadleClick={dblHadleClick}
+              />
+            );
+          })}
+        </tbody>
       </table>
     </>
   );
