@@ -4,7 +4,6 @@ import styles from "../style.module.css";
 export interface RowInterface {
   data: number[];
   handleClick: MouseEventHandler;
-  dblHadleClick: MouseEventHandler;
   colored: boolean[];
 }
 

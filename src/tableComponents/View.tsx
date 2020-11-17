@@ -4,6 +4,7 @@ import reportWebVitals from "../reportWebVitals";
 import Chance from "chance";
 import Row from "./Row";
 
+
 const sortN = (firstData: number[], secondData: number[]): boolean[] => {
   const sorted = [];
 
@@ -60,10 +61,6 @@ const View = (props: View) => {
     }
     props.changeTopN(indexTopN);
   };
-  const dblHadleClick = (event: React.MouseEvent<HTMLElement>) => {
-    const value = event.currentTarget.innerText;
-    console.log(value);
-  };
 
   return (
     <>
@@ -76,7 +73,7 @@ const View = (props: View) => {
                 data={rowData}
                 colored={sortN(rowData, sortedArr)}
                 handleClick={handleClick}
-                dblHadleClick={dblHadleClick}
+                aria-label="vew"
               />
             );
           })}
