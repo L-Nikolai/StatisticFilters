@@ -12,7 +12,9 @@ const Row = (props: RowInterface): React.ReactElement => (
 
 describe("Row", () => {
   test("should be rendered", () => {
-    render(<Row data={[2]} handleClick={() => {}} colored={[true]} />);
+    render(
+      <Row data={[{ value: 2, highlight: false }]} handleClick={() => {}} />
+    );
     const rowElement = screen.getByText(/2/i);
 
     expect(rowElement).toBeInTheDocument();
@@ -21,15 +23,19 @@ describe("Row", () => {
     );
   });
 
-  test("should be blue with colored true", () => {
-    render(<Row data={[1]} handleClick={() => {}} colored={[true]} />);
+  test("should be blue if highlight true", () => {
+    render(
+      <Row data={[{ value: 90, highlight: true }]} handleClick={() => {}} />
+    );
     const rowElement = screen.getByLabelText(/cell/i);
 
     expect((rowElement as HTMLInputElement).style.color).toEqual("blue");
   });
 
-  test("should be grey with colored false", () => {
-    render(<Row data={[1]} handleClick={() => {}} colored={[false]} />);
+  test("should be grey if highlight false", () => {
+    render(
+      <Row data={[{ value: 2, highlight: false }]} handleClick={() => {}} />
+    );
     const rowElement = screen.getByLabelText(/cell/i);
 
     expect((rowElement as HTMLInputElement).style.color).toEqual("grey");
@@ -37,7 +43,9 @@ describe("Row", () => {
 
   test("should be clicked with cell", () => {
     const handleClick = jest.fn();
-    render(<Row data={[1]} handleClick={handleClick} colored={[false]} />);
+    render(
+      <Row data={[{ value: 2, highlight: false }]} handleClick={handleClick} />
+    );
     const rowElement = screen.getByLabelText(/cell/i);
 
     fireEvent.click(rowElement);
@@ -45,8 +53,10 @@ describe("Row", () => {
     expect(handleClick.mock.calls.length).toEqual(1);
   });
 
-  test("should be rendered renderCell", () => {
-    render(<Row data={[2]} handleClick={() => {}} colored={[true]} />);
+  test("should be rendered Row", () => {
+    render(
+      <Row data={[{ value: 2, highlight: false }]} handleClick={() => {}} />
+    );
     const renderCellElement = screen.getByLabelText(/row/i);
 
     expect(renderCellElement).toBeInTheDocument();
