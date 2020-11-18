@@ -4,7 +4,6 @@ import reportWebVitals from "../reportWebVitals";
 import Chance from "chance";
 import Row from "./Row";
 
-
 const sortN = (firstData: number[], secondData: number[]): boolean[] => {
   const sorted = [];
 
@@ -31,7 +30,6 @@ const get2DData = (colums: number, rows: number): number[][] => {
       date[rowIndex][columIndex] = randomNum;
     }
   }
-
   return date;
 };
 
@@ -64,7 +62,7 @@ const View = (props: View) => {
 
   return (
     <>
-      <table>
+      <table title="table">
         <tbody>
           {data2D.map((rowData, index) => {
             return (
@@ -73,7 +71,6 @@ const View = (props: View) => {
                 data={rowData}
                 colored={sortN(rowData, sortedArr)}
                 handleClick={handleClick}
-                aria-label="vew"
               />
             );
           })}
