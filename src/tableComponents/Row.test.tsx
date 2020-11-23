@@ -23,22 +23,20 @@ describe("Row", () => {
     );
   });
 
-  test("should be blue if highlight true", () => {
+  test("should be color if highlight true or false", () => {
     render(
-      <Row data={[{ value: 90, highlight: true }]} handleClick={() => {}} />
+      <Row
+        data={[
+          { value: 90, highlight: true },
+          { value: 10, highlight: false },
+        ]}
+        handleClick={() => {}}
+      />
     );
-    const rowElement = screen.getByLabelText(/cell/i);
+    const rowElements = screen.queryAllByRole(/cell/i);
 
-    expect((rowElement as HTMLInputElement).style.color).toEqual("blue");
-  });
-
-  test("should be grey if highlight false", () => {
-    render(
-      <Row data={[{ value: 2, highlight: false }]} handleClick={() => {}} />
-    );
-    const rowElement = screen.getByLabelText(/cell/i);
-
-    expect((rowElement as HTMLInputElement).style.color).toEqual("grey");
+    expect((rowElements[0] as HTMLInputElement).style.color).toEqual("blue");
+    expect((rowElements[1] as HTMLInputElement).style.color).toEqual("grey");
   });
 
   test("should be clicked with cell", () => {

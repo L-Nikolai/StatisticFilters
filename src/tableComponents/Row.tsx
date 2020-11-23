@@ -4,6 +4,7 @@ import styles from "../style.module.css";
 export type DataItem = {
   value: number;
   highlight: boolean;
+  id?: string;
 };
 export interface RowInterface {
   data: DataItem[];
