@@ -1,6 +1,7 @@
-import { getColoring, get2DData, getTopN } from "./utils";
+import { getHighlightArray, get2DData, getTopN } from "./utils";
 import Chance from "chance";
 import { DataItem } from "./Row";
+
 jest.mock("chance", () => {
   const mockInteger = jest.fn();
 
@@ -33,32 +34,12 @@ describe("utils", () => {
       ]);
     });
   });
-  const getHilitedArray = (array: DataItem[][], topN: number): DataItem[][] => {
-    const sortedArray: DataItem[] = array
-      .slice()
-      .flat()
-      .sort((a, b) => (a.value < b.value ? 1 : -1))
-      .slice(0, topN);
-    for (let i = 0; i < array.length; i++) {
-      for (let j = 0; j < array[i].length; j++) {
-        for (let k = 0; k < sortedArray.length; k++) {
-          if (array[i][j].id === sortedArray[k].id) {
-            array[i][j] = {
-              value: array[i][j].value,
-              highlight: true,
-              id: array[i][j].id,
-            };
-          }
-        }
-      }
-    }
-    return array;
-  };
+  
 
-  describe("getHilitedArray utils ", () => {
+  describe("getHighlightArray utils ", () => {
     test("shoold return array", () => {
       const array = get2DData(1, 1);
-      const result = getHilitedArray(array, 0);
+      const result = getHighlightArray(array, 0);
 
       expect(result.length).toEqual(1);
       expect(result[0]).toHaveLength(1);
@@ -68,7 +49,7 @@ describe("utils", () => {
       let i = 0;
       chanceInstance.integer.mockImplementation(() => ++i);
       const array = get2DData(2, 2);
-      const result = getHilitedArray(array, 2);
+      const result = getHighlightArray(array, 2);
       expect(result[1][0].highlight).toEqual(true);
       expect(result[1][1].highlight).toEqual(true);
     });
@@ -77,7 +58,7 @@ describe("utils", () => {
       let i = 0;
       chanceInstance.integer.mockImplementation(() => ++i);
       const array = get2DData(1, 1);
-      const result = getHilitedArray(array, 1);
+      const result = getHighlightArray(array, 1);
 
       expect(result).toEqual([[{ value: 1, highlight: true, id: "00" }]]);
     });
@@ -86,7 +67,7 @@ describe("utils", () => {
       let i = 0;
       chanceInstance.integer.mockImplementation(() => ++i);
       const array = get2DData(1, 2);
-      const result = getHilitedArray(array, 1);
+      const result = getHighlightArray(array, 1);
 
       expect(result).toEqual([
         [
@@ -97,11 +78,14 @@ describe("utils", () => {
     });
   });
 
-  //   describe("getTopN utils", () => {
-  //     test("shoold be calculate topN", () => {
-  //       const array = get2DData(2, 2);
-  //       const result = getTopN(array, array[0][0].value);
-  //       expect(result).toEqual(2);
-  //     });
-  //   });
+    // describe("getTopN utils", () => {
+    //   test("shoold be calculate topN", () => {
+    //     let i = 0;
+    //     chanceInstance.integer.mockImplementation(() => ++i);
+    //     const array = get2DData(3, 3);
+    //     console.log(array)
+    //     const result = getTopN(array, array[0][0].value);
+    //     expect(result).toEqual(2);
+    //   });
+    // });
 });
