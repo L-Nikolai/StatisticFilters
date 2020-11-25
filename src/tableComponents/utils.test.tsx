@@ -20,25 +20,26 @@ describe("utils", () => {
   describe("get2DData utils", () => {
     test("shoold be accept data and issue an array ", () => {
       chanceInstance.integer.mockReturnValue(2);
+
       const result = get2DData(2, 2);
 
       expect(result).toEqual([
         [
-          { value: 2, highlight: false, id: "00" },
-          { value: 2, highlight: false, id: "01" },
+          { value: 2, id: "00" },
+          { value: 2, id: "01" },
         ],
         [
-          { value: 2, highlight: false, id: "10" },
-          { value: 2, highlight: false, id: "11" },
+          { value: 2, id: "10" },
+          { value: 2, id: "11" },
         ],
       ]);
     });
   });
-  
 
   describe("getHighlightArray utils ", () => {
     test("shoold return array", () => {
       const array = get2DData(1, 1);
+
       const result = getHighlightArray(array, 0);
 
       expect(result.length).toEqual(1);
@@ -49,7 +50,9 @@ describe("utils", () => {
       let i = 0;
       chanceInstance.integer.mockImplementation(() => ++i);
       const array = get2DData(2, 2);
+
       const result = getHighlightArray(array, 2);
+
       expect(result[1][0].highlight).toEqual(true);
       expect(result[1][1].highlight).toEqual(true);
     });
@@ -58,6 +61,7 @@ describe("utils", () => {
       let i = 0;
       chanceInstance.integer.mockImplementation(() => ++i);
       const array = get2DData(1, 1);
+
       const result = getHighlightArray(array, 1);
 
       expect(result).toEqual([[{ value: 1, highlight: true, id: "00" }]]);
@@ -67,6 +71,7 @@ describe("utils", () => {
       let i = 0;
       chanceInstance.integer.mockImplementation(() => ++i);
       const array = get2DData(1, 2);
+
       const result = getHighlightArray(array, 1);
 
       expect(result).toEqual([
@@ -78,14 +83,15 @@ describe("utils", () => {
     });
   });
 
-    // describe("getTopN utils", () => {
-    //   test("shoold be calculate topN", () => {
-    //     let i = 0;
-    //     chanceInstance.integer.mockImplementation(() => ++i);
-    //     const array = get2DData(3, 3);
-    //     console.log(array)
-    //     const result = getTopN(array, array[0][0].value);
-    //     expect(result).toEqual(2);
-    //   });
-    // });
+  describe("getTopN utils", () => {
+    test("shoold be calculate topN", () => {
+      let i = 0;
+      chanceInstance.integer.mockImplementation(() => ++i);
+      const array = get2DData(2, 2);
+
+      const result = getTopN(array, array[0][1].value);
+
+      expect(result).toEqual(3);
+    });
+  });
 });
