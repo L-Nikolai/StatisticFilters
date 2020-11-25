@@ -1,4 +1,10 @@
-import { getHighlightArray, get2DData, getTopN } from "./utils";
+import {
+  getHighlightTopN,
+  getHighlightRange,
+  get2DData,
+  getTopN,
+  getRange,
+} from "./utils";
 import Chance from "chance";
 import { DataItem } from "./Row";
 
@@ -36,11 +42,11 @@ describe("utils", () => {
     });
   });
 
-  describe("getHighlightArray utils ", () => {
+  describe("getHighlightTopN utils ", () => {
     test("shoold return array", () => {
       const array = get2DData(1, 1);
 
-      const result = getHighlightArray(array, 0);
+      const result = getHighlightTopN(array, 0);
 
       expect(result.length).toEqual(1);
       expect(result[0]).toHaveLength(1);
@@ -51,7 +57,7 @@ describe("utils", () => {
       chanceInstance.integer.mockImplementation(() => ++i);
       const array = get2DData(2, 2);
 
-      const result = getHighlightArray(array, 2);
+      const result = getHighlightTopN(array, 2);
 
       expect(result[1][0].highlight).toEqual(true);
       expect(result[1][1].highlight).toEqual(true);
@@ -62,7 +68,7 @@ describe("utils", () => {
       chanceInstance.integer.mockImplementation(() => ++i);
       const array = get2DData(1, 1);
 
-      const result = getHighlightArray(array, 1);
+      const result = getHighlightTopN(array, 1);
 
       expect(result).toEqual([[{ value: 1, highlight: true, id: "00" }]]);
     });
@@ -72,12 +78,29 @@ describe("utils", () => {
       chanceInstance.integer.mockImplementation(() => ++i);
       const array = get2DData(1, 2);
 
-      const result = getHighlightArray(array, 1);
+      const result = getHighlightTopN(array, 1);
 
       expect(result).toEqual([
         [
           { value: 1, highlight: false, id: "00" },
           { value: 2, highlight: true, id: "01" },
+        ],
+      ]);
+    });
+  });
+
+  describe("getHighlightRange utils ", () => {
+    test("shoold return higlight array", () => {
+      let i = 0;
+      chanceInstance.integer.mockImplementation(() => ++i);
+      const array = get2DData(1, 2);
+      const arrayRange = getRange(array, 1, 1);
+      const result = getHighlightRange(array, arrayRange);
+
+      expect(result).toEqual([
+        [
+          { highlight: true, id: "00", value: 1 },
+          { highlight: false, id: "01", value: 2 },
         ],
       ]);
     });

@@ -13,7 +13,14 @@ const App = () => {
 
   return (
     <>
-      <View topN={topN} changeTopN={changeTopN} />
+      <View
+        topN={topN}
+        changeTopN={changeTopN}
+        minRange={minRange}
+        maxRange={maxRange}
+        changeRange={changeRange}
+        statisticFilter={statisticFilter}
+      />
       <StatisticFilters
         topN={topN}
         changeTopN={changeTopN}

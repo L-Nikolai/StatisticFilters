@@ -4,10 +4,7 @@ import Range from "./range";
 
 describe("Range first input component", () => {
   test("should be render  ", () => {
-    render(<Range 
-      minRange={-100}
-      maxRange={90}
-      changeRange={()=>{}}/>);
+    render(<Range minRange={-100} maxRange={90} changeRange={() => {}} />);
     const rangeElement = screen.getByLabelText(/firstInputRange/i);
 
     expect(rangeElement).toBeInTheDocument();
@@ -17,10 +14,7 @@ describe("Range first input component", () => {
   });
 
   test("shoold be change value", () => {
-    render(<Range 
-      minRange={-100}
-      maxRange={90}
-      changeRange={()=>{}}/>);
+    render(<Range minRange={-100} maxRange={90} changeRange={() => {}} />);
     const rangeElement = screen.getByLabelText(/firstInputRange/);
 
     fireEvent.change(rangeElement, { target: { value: "5" } });
@@ -32,10 +26,7 @@ describe("Range first input component", () => {
   });
 
   test("should be invalide state when value is negative", () => {
-    render(<Range 
-      minRange={-100}
-      maxRange={90}
-      changeRange={()=>{}}/>);
+    render(<Range minRange={-100} maxRange={90} changeRange={() => {}} />);
     const rangeElement = screen.getByLabelText(/firstInputRange/i);
 
     fireEvent.change(rangeElement, { target: { value: "-101" } });
@@ -48,10 +39,7 @@ describe("Range first input component", () => {
 
 describe("Range second input component", () => {
   test("should be render  ", () => {
-    render(<Range 
-      minRange={-100}
-      maxRange={90}
-      changeRange={()=>{}}/>);
+    render(<Range minRange={-100} maxRange={90} changeRange={() => {}} />);
     const RangeElement = screen.getByLabelText(/secondInputRange/i);
 
     expect(RangeElement).toBeInTheDocument();
@@ -61,10 +49,7 @@ describe("Range second input component", () => {
   });
 
   test("shoold be change value", () => {
-    render(<Range 
-      minRange={-100}
-      maxRange={90}
-      changeRange={()=>{}}/>);
+    render(<Range minRange={-100} maxRange={90} changeRange={() => {}} />);
     const rangeElement = screen.getByLabelText(/secondInputRange/);
 
     fireEvent.change(rangeElement, { target: { value: "50" } });
@@ -76,10 +61,7 @@ describe("Range second input component", () => {
   });
 
   test("should be invalide state when value is negative", () => {
-    render(<Range 
-      minRange={-100}
-      maxRange={90}
-      changeRange={()=>{}}/>);
+    render(<Range minRange={-100} maxRange={90} changeRange={() => {}} />);
     const rangeElement = screen.getByLabelText(/secondInputRange/i);
 
     fireEvent.change(rangeElement, { target: { value: "101" } });
@@ -92,10 +74,7 @@ describe("Range second input component", () => {
 
 describe("Checked inputs ", () => {
   test("shoold be ivalid then minRange > maxRange", () => {
-    render(<Range 
-      minRange={50}
-      maxRange={40}
-      changeRange={()=>{}}/>);
+    render(<Range minRange={50} maxRange={40} changeRange={() => {}} />);
     const rangeElementFirst = screen.getByLabelText(/firstInputRange/i);
     const rangeElementSecond = screen.getByLabelText(/secondInputRange/i);
 

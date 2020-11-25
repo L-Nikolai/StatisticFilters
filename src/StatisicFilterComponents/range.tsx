@@ -3,20 +3,19 @@ import Input from "./input";
 import { getValue } from "./percentile";
 
 interface Range {
-  minRange: number
-  maxRange: number
- changeRange: (value:[number, number]) => void;
+  minRange: number;
+  maxRange: number;
+  changeRange: (value: [number, number]) => void;
 }
-
 
 const checkedRange = (numValue: number): boolean =>
   numValue >= -100 && numValue <= 100;
 
-const Range = (prop : Range) => {
+const Range = (prop: Range) => {
   const [isValid, changeIsValid] = useState(true);
-  const minRange = prop.minRange
-  const maxRange = prop.maxRange
-  const changeRange = prop.changeRange
+  const minRange = prop.minRange;
+  const maxRange = prop.maxRange;
+  const changeRange = prop.changeRange;
 
   const changeMinRange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {

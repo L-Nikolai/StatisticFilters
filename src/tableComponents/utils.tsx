@@ -5,7 +5,7 @@ const chance = new Chance();
 const sortData = (data: DataItem[][]) => {
   return data.flat().sort((a, b) => (a.value < b.value ? 1 : -1));
 };
-export const getHighlightArray = (
+export const getHighlightTopN = (
   data: DataItem[][],
   topN: number
 ): DataItem[][] => {
@@ -21,6 +21,25 @@ export const getHighlightArray = (
       };
       for (let k = 0; k < sortedTopNArray.length; k++) {
         if (data[i][j].id === sortedTopNArray[k].id) {
+          highlightArray[i][j].highlight = true;
+        }
+      }
+    }
+  }
+  return highlightArray;
+};
+export const getHighlightRange = (data: DataItem[][], rangeArr: number[]) => {
+  const highlightArray: DataItem[][] = [];
+  for (let i = 0; i < data.length; i++) {
+    highlightArray[i] = [];
+    for (let j = 0; j < data[i].length; j++) {
+      highlightArray[i][j] = {
+        value: data[i][j].value,
+        highlight: false,
+        id: data[i][j].id,
+      };
+      for (let k = 0; k < rangeArr.length; k++) {
+        if (data[i][j].value === rangeArr[k]) {
           highlightArray[i][j].highlight = true;
         }
       }
@@ -56,4 +75,19 @@ export const getTopN = (data: DataItem[][], dataElem: number) => {
     }
   }
   return indexTopN;
+};
+
+export const getRange = (
+  data: DataItem[][],
+  minRange: number,
+  maxRange: number
+): number[] => {
+  const date = sortData(data);
+  let rangeArr: number[] = [];
+  for (let i = 0; i < date.length; i++) {
+    if (date[i].value >= minRange && date[i].value <= maxRange) {
+      rangeArr.push(date[i].value);
+    }
+  }
+  return rangeArr;
 };
