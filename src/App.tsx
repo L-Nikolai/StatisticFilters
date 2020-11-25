@@ -9,6 +9,8 @@ const App = () => {
   const [statisticFilter, setStatisticFilter] = useState<statisticFilterType>(
     "percentile"
   );
+  const [[minRange, maxRange], changeRange] = useState([-100, 100]);
+
   return (
     <>
       <View topN={topN} changeTopN={changeTopN} />
@@ -17,6 +19,9 @@ const App = () => {
         changeTopN={changeTopN}
         statisticFilter={statisticFilter}
         setStatisticFilter={setStatisticFilter}
+        minRange={minRange}
+        maxRange={maxRange}
+        changeRange={changeRange}
       />
     </>
   );

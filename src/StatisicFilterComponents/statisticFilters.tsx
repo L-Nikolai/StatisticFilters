@@ -9,6 +9,9 @@ interface StatisticFilters {
   topN: number;
   statisticFilter: string;
   setStatisticFilter: (value: statisticFilterType) => void;
+  minRange: number
+   maxRange: number
+  changeRange: (value:[number, number]) => void;
 }
 
 const StatisticFilters = (prop: StatisticFilters) => {
@@ -49,7 +52,10 @@ const StatisticFilters = (prop: StatisticFilters) => {
       ) : prop.statisticFilter === "topN" ? (
         <TopN value={prop.topN} changeValue={prop.changeTopN} />
       ) : (
-        <Range />
+        <Range 
+        minRange={prop.minRange}
+        maxRange={prop.maxRange}
+        changeRange={prop.changeRange} />
       )}
     </>
   );
