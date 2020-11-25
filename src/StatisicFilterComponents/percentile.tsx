@@ -3,7 +3,9 @@ import Input from "./input";
 
 const checkRange = (numValue: number): boolean =>
   numValue >= 0 && numValue <= 100;
-const getValue = (event: React.ChangeEvent<HTMLInputElement>): number => {
+export const getValue = (
+  event: React.ChangeEvent<HTMLInputElement>
+): number => {
   const { value } = event.target;
   const numValue = parseFloat(value);
   return numValue;

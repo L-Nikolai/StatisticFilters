@@ -13,7 +13,7 @@ describe("Percentile first component", () => {
     );
   });
 
-  test("should change value", () => {
+  test("should be change value", () => {
     render(<Percentile />);
     const percentileelement = screen.getByLabelText(/inputfirst/i);
 
@@ -25,7 +25,7 @@ describe("Percentile first component", () => {
     );
   });
 
-  test("should invalide state when value isnegative", () => {
+  test("should be invalide state when value isnegative", () => {
     render(<Percentile />);
     const percentileelement = screen.getByLabelText(/inputfirst/i);
 
@@ -36,7 +36,7 @@ describe("Percentile first component", () => {
     );
   });
 
-  test("should reset invalid state when value is valid", () => {
+  test("should be reset invalid state when value is valid", () => {
     render(<Percentile />);
     const percentileelement = screen.getByLabelText(/inputfirst/i);
 
@@ -97,7 +97,7 @@ describe("Percentile second component", () => {
 });
 
 describe("Checked inputs ", () => {
-  test("input1 > input2 ?", () => {
+  test("shoold be className is ivalid when input1 > input2 ", () => {
     render(<Percentile />);
     const percentileelement = screen.getByLabelText(/inputfirst/i);
     const percentileelementsecond = screen.getByLabelText(/inputsecond/i);
