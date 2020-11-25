@@ -5,7 +5,7 @@ import StatisticFilters from "./statisticFilters";
 const setStatisticFilter = jest.fn();
 
 describe("StatisticFilters components", () => {
-  test("should  render topn", () => {
+  test("should  render topN", () => {
     render(
       <StatisticFilters
         changeTopN={() => {}}
@@ -35,5 +35,21 @@ describe("StatisticFilters components", () => {
     fireEvent.change(percentileelement, { target: { value: "percentile" } });
 
     expect(setStatisticFilter.mock.calls[0][0]).toEqual("percentile");
+  });
+
+  test("should  render range", () => {
+    render(
+      <StatisticFilters
+        changeTopN={() => {}}
+        topN={10}
+        statisticFilter="range"
+        setStatisticFilter={setStatisticFilter}
+      />
+    );
+    const percentileelement = screen.getByLabelText(/select/i);
+
+    fireEvent.change(percentileelement, { target: { value: "range" } });
+
+    expect(setStatisticFilter.mock.calls[0][0]).toEqual("range");
   });
 });

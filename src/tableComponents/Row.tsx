@@ -3,7 +3,7 @@ import styles from "../style.module.css";
 
 export type DataItem = {
   value: number;
-  highlight: boolean;
+  highlight?: boolean;
   id?: string;
 };
 export interface RowInterface {

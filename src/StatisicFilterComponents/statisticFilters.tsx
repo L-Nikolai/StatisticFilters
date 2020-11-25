@@ -1,8 +1,9 @@
 import React, { useCallback } from "react";
 import TopN from "./topN";
 import Percentile from "./percentile";
+import Range from "./range";
 
-export type statisticFilterType = "percentile" | "topN";
+export type statisticFilterType = "percentile" | "topN" | "range";
 interface StatisticFilters {
   changeTopN: (value: number) => void;
   topN: number;
@@ -17,7 +18,11 @@ const StatisticFilters = (prop: StatisticFilters) => {
 
       if (value === "percentile") {
         prop.setStatisticFilter("percentile");
-      } else prop.setStatisticFilter("topN");
+      } else if (value === "topN") {
+        prop.setStatisticFilter("topN");
+      } else {
+        prop.setStatisticFilter("range");
+      }
     },
     []
   );
@@ -32,14 +37,19 @@ const StatisticFilters = (prop: StatisticFilters) => {
         <option value="percentile" aria-label="percentile">
           Percentile
         </option>
-        <option value="topN" aria-label="topn">
+        <option value="topN" aria-label="topN">
           TopN
+        </option>
+        <option value="range" aria-label="range">
+          Range
         </option>
       </select>{" "}
       {prop.statisticFilter === "percentile" ? (
         <Percentile />
-      ) : (
+      ) : prop.statisticFilter === "topN" ? (
         <TopN value={prop.topN} changeValue={prop.changeTopN} />
+      ) : (
+        <Range />
       )}
     </>
   );
