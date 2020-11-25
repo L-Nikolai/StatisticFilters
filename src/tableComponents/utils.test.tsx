@@ -94,8 +94,7 @@ describe("utils", () => {
       let i = 0;
       chanceInstance.integer.mockImplementation(() => ++i);
       const array = get2DData(1, 2);
-      const arrayRange = getRange(array, 1, 1);
-      const result = getHighlightRange(array, arrayRange);
+      const result = getHighlightRange(array,1,1 );
 
       expect(result).toEqual([
         [

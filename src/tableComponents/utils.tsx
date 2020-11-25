@@ -28,7 +28,7 @@ export const getHighlightTopN = (
   }
   return highlightArray;
 };
-export const getHighlightRange = (data: DataItem[][], rangeArr: number[]) => {
+export const getHighlightRange = (data: DataItem[][], minRange:number,maxRange:number) => {
   const highlightArray: DataItem[][] = [];
   for (let i = 0; i < data.length; i++) {
     highlightArray[i] = [];
@@ -38,13 +38,12 @@ export const getHighlightRange = (data: DataItem[][], rangeArr: number[]) => {
         highlight: false,
         id: data[i][j].id,
       };
-      for (let k = 0; k < rangeArr.length; k++) {
-        if (data[i][j].value === rangeArr[k]) {
+        if (highlightArray[i][j].value >= minRange && highlightArray[i][j].value <= maxRange ) 
           highlightArray[i][j].highlight = true;
-        }
+        
       }
     }
-  }
+  
   return highlightArray;
 };
 
@@ -77,17 +76,3 @@ export const getTopN = (data: DataItem[][], dataElem: number) => {
   return indexTopN;
 };
 
-export const getRange = (
-  data: DataItem[][],
-  minRange: number,
-  maxRange: number
-): number[] => {
-  const date = sortData(data);
-  let rangeArr: number[] = [];
-  for (let i = 0; i < date.length; i++) {
-    if (date[i].value >= minRange && date[i].value <= maxRange) {
-      rangeArr.push(date[i].value);
-    }
-  }
-  return rangeArr;
-};

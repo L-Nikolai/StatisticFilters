@@ -27,7 +27,7 @@ const View = (props: View) => {
     if (statisticFilter === 'topN'){
      return  getHighlightTopN(data2D, topN);
     } else {
-     return getHighlightRange(data2D, getRange(data2D,minRange,maxRange))
+     return getHighlightRange(data2D,minRange,maxRange)
     }
   }
 
