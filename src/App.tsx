@@ -10,6 +10,10 @@ const App = () => {
     "percentile"
   );
   const [[minRange, maxRange], changeRange] = useState([-100, 100]);
+  const [
+    [firstPercentileValue, secondPercentileValue],
+    changePercentile,
+  ] = useState([0, 100]);
 
   return (
     <>
@@ -20,6 +24,9 @@ const App = () => {
         maxRange={maxRange}
         changeRange={changeRange}
         statisticFilter={statisticFilter}
+        firstPercentileValue={firstPercentileValue}
+        secondPercentileValue={secondPercentileValue}
+        changePercentile={changePercentile}
       />
       <StatisticFilters
         topN={topN}
@@ -29,6 +36,9 @@ const App = () => {
         minRange={minRange}
         maxRange={maxRange}
         changeRange={changeRange}
+        firstPercentileValue={firstPercentileValue}
+        secondPercentileValue={secondPercentileValue}
+        changePercentile={changePercentile}
       />
     </>
   );

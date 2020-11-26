@@ -1,6 +1,11 @@
 import React, { useState, useCallback } from "react";
 import Input from "./input";
 
+interface Percentile {
+  firstPercentileValue: number;
+  secondPercentileValue: number;
+  changePercentile: (value: [number, number]) => void;
+}
 const checkRange = (numValue: number): boolean =>
   numValue >= 0 && numValue <= 100;
 export const getValue = (
@@ -11,9 +16,11 @@ export const getValue = (
   return numValue;
 };
 
-const Percentile = () => {
+const Percentile = (prop: Percentile) => {
   const [isValid, changeIsValid] = useState(true);
-  const [[firstValue, secondValue], changeValues] = useState([0, 100]);
+  const firstPercentileValue = prop.firstPercentileValue;
+  const secondPercentileValue = prop.secondPercentileValue;
+  const changePercentile = prop.changePercentile;
 
   const onFirstChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,12 +29,12 @@ const Percentile = () => {
       const inRange = checkRange(numValue);
       changeIsValid(inRange);
 
-      if (numValue >= secondValue) {
+      if (numValue >= secondPercentileValue) {
         changeIsValid(false);
       }
-      changeValues([numValue, secondValue]);
+      changePercentile([numValue, secondPercentileValue]);
     },
-    [firstValue, secondValue]
+    [firstPercentileValue, secondPercentileValue]
   );
 
   const onSecondChange = useCallback(
@@ -37,12 +44,12 @@ const Percentile = () => {
       const inRange = checkRange(numValue);
       changeIsValid(inRange);
 
-      if (firstValue >= numValue) {
+      if (firstPercentileValue >= numValue) {
         changeIsValid(false);
       }
-      changeValues([firstValue, numValue]);
+      changePercentile([firstPercentileValue, numValue]);
     },
-    [firstValue, secondValue]
+    [firstPercentileValue, secondPercentileValue]
   );
 
   return (

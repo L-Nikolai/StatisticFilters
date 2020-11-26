@@ -12,6 +12,12 @@ describe("StatisticFilters components", () => {
         topN={10}
         statisticFilter="topN"
         setStatisticFilter={setStatisticFilter}
+        minRange={-100}
+        maxRange={90}
+        changeRange={() => {}}
+        firstPercentileValue={0}
+        secondPercentileValue={100}
+        changePercentile={() => {}}
       />
     );
     const percentileelement = screen.getByLabelText(/select/i);
@@ -28,6 +34,12 @@ describe("StatisticFilters components", () => {
         topN={10}
         statisticFilter="percentile"
         setStatisticFilter={setStatisticFilter}
+        minRange={-100}
+        maxRange={90}
+        changeRange={() => {}}
+        firstPercentileValue={0}
+        secondPercentileValue={100}
+        changePercentile={() => {}}
       />
     );
     const percentileelement = screen.getByLabelText(/select/i);
@@ -44,6 +56,12 @@ describe("StatisticFilters components", () => {
         topN={10}
         statisticFilter="range"
         setStatisticFilter={setStatisticFilter}
+        minRange={-100}
+        maxRange={90}
+        changeRange={() => {}}
+        firstPercentileValue={0}
+        secondPercentileValue={100}
+        changePercentile={() => {}}
       />
     );
     const percentileelement = screen.getByLabelText(/select/i);

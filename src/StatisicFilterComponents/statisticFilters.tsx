@@ -12,6 +12,9 @@ interface StatisticFilters {
   minRange: number;
   maxRange: number;
   changeRange: (value: [number, number]) => void;
+  firstPercentileValue: number;
+  secondPercentileValue: number;
+  changePercentile: (value: [number, number]) => void;
 }
 
 const StatisticFilters = (prop: StatisticFilters) => {
@@ -48,7 +51,11 @@ const StatisticFilters = (prop: StatisticFilters) => {
         </option>
       </select>{" "}
       {prop.statisticFilter === "percentile" ? (
-        <Percentile />
+        <Percentile
+          firstPercentileValue={prop.firstPercentileValue}
+          secondPercentileValue={prop.secondPercentileValue}
+          changePercentile={prop.changePercentile}
+        />
       ) : prop.statisticFilter === "topN" ? (
         <TopN value={prop.topN} changeValue={prop.changeTopN} />
       ) : (

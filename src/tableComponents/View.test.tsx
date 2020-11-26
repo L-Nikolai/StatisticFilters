@@ -11,7 +11,10 @@ describe("View topN", () => {
         minRange={-100}
         maxRange={100}
         changeRange={() => {}}
-        statisticFilter = {'topN'}
+        statisticFilter={"topN"}
+        firstPercentileValue={0}
+        secondPercentileValue={100}
+        changePercentile={() => {}}
       />
     );
 
@@ -28,7 +31,10 @@ describe("View topN", () => {
         minRange={-100}
         maxRange={100}
         changeRange={() => {}}
-        statisticFilter = {'topN'}
+        statisticFilter={"topN"}
+        firstPercentileValue={0}
+        secondPercentileValue={100}
+        changePercentile={() => {}}
       />
     );
 
@@ -45,7 +51,10 @@ describe("View topN", () => {
         minRange={-100}
         maxRange={100}
         changeRange={() => {}}
-        statisticFilter = {'topN'}
+        statisticFilter={"topN"}
+        firstPercentileValue={0}
+        secondPercentileValue={100}
+        changePercentile={() => {}}
       />
     );
     const viewElement = screen.getAllByRole(/cell/);
@@ -63,7 +72,10 @@ describe("View topN", () => {
         minRange={-100}
         maxRange={100}
         changeRange={() => {}}
-        statisticFilter = {'topN'}
+        statisticFilter={"topN"}
+        firstPercentileValue={0}
+        secondPercentileValue={100}
+        changePercentile={() => {}}
       />
     );
     const viewElement = screen.getAllByRole(/cell/);
@@ -72,8 +84,6 @@ describe("View topN", () => {
       viewElement.filter((elem) => elem.style.color === "blue").length
     ).toEqual(3);
   });
-
-  
 });
 describe("View  range", () => {
   test("should be render highlighted table at Range ", () => {
@@ -84,7 +94,10 @@ describe("View  range", () => {
         minRange={-100}
         maxRange={100}
         changeRange={() => {}}
-        statisticFilter = {'range'}
+        statisticFilter={"range"}
+        firstPercentileValue={0}
+        secondPercentileValue={100}
+        changePercentile={() => {}}
       />
     );
     const viewElement = screen.getAllByRole(/cell/);
@@ -93,5 +106,27 @@ describe("View  range", () => {
       viewElement.filter((elem) => elem.style.color === "blue").length
     ).toEqual(100);
   });
+});
 
+describe("View  percentile", () => {
+  test("should be render table at percentile ", () => {
+    render(
+      <View
+        topN={90}
+        changeTopN={() => {}}
+        minRange={-100}
+        maxRange={100}
+        changeRange={() => {}}
+        statisticFilter={"percentile"}
+        firstPercentileValue={0}
+        secondPercentileValue={100}
+        changePercentile={() => {}}
+      />
+    );
+    const viewElement = screen.getAllByRole(/cell/);
+
+    expect(
+      viewElement.filter((elem) => elem.style.color === "blue").length
+    ).toEqual(100);
+  });
 });

@@ -3,7 +3,8 @@ import {
   getHighlightRange,
   get2DData,
   getTopN,
-  getRange,
+  getHighlightPercentile,
+  getPercentile,
 } from "./utils";
 import Chance from "chance";
 import { DataItem } from "./Row";
@@ -93,13 +94,41 @@ describe("utils", () => {
     test("shoold return higlight array", () => {
       let i = 0;
       chanceInstance.integer.mockImplementation(() => ++i);
-      const array = get2DData(1, 2);
-      const result = getHighlightRange(array,1,1 );
+      const array = get2DData(2, 2);
+      const result = getHighlightRange(array, 1, 1);
 
       expect(result).toEqual([
         [
           { highlight: true, id: "00", value: 1 },
           { highlight: false, id: "01", value: 2 },
+        ],
+        [
+          { highlight: false, id: "10", value: 3 },
+          { highlight: false, id: "11", value: 4 },
+        ],
+      ]);
+    });
+  });
+
+  describe("getHighlightPercentile utils ", () => {
+    test("shoold return higlight array", () => {
+      let i = 0;
+      chanceInstance.integer.mockImplementation(() => ++i);
+      const array = get2DData(2, 2);
+
+      const result = getHighlightPercentile(
+        array,
+        getPercentile(array, 40, 60)
+      );
+
+      expect(result).toEqual([
+        [
+          { highlight: false, id: "00", value: 1 },
+          { highlight: true, id: "01", value: 2 },
+        ],
+        [
+          { highlight: true, id: "10", value: 3 },
+          { highlight: false, id: "11", value: 4 },
         ],
       ]);
     });
