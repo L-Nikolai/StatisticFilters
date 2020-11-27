@@ -40,13 +40,13 @@ const StatisticFilters = (prop: StatisticFilters) => {
         defaultValue="percentile"
         aria-label="select"
       >
-        <option value="percentile" aria-label="percentile">
+        <option value="percentile">
           Percentile
         </option>
-        <option value="topN" aria-label="topN">
+        <option value="topN">
           TopN
         </option>
-        <option value="range" aria-label="range">
+        <option value="range">
           Range
         </option>
       </select>{" "}
