@@ -16,10 +16,7 @@ interface StatisticFilters {
   changeFilter: (value: Filter) => void;
 }
 
-const StatisticFilters = (prop: StatisticFilters) => {
-  const filter = prop.filter;
-  const changeFilter = prop.changeFilter;
-
+const StatisticFilters = ({ filter, changeFilter }: StatisticFilters) => {
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
       const { value } = event.target;

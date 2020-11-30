@@ -5,7 +5,7 @@ interface TopN {
   value: number;
 }
 
-const TopN = ({value,changeValue}: TopN) => {
+const TopN = ({ value, changeValue }: TopN) => {
   const [isValid, changeIsValid] = useState(true);
 
   const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,12 +19,7 @@ const TopN = ({value,changeValue}: TopN) => {
   }, []);
 
   return (
-    <Input
-      isValid={isValid}
-      onChange={onChange}
-      label="topn"
-      value={value}
-    />
+    <Input isValid={isValid} onChange={onChange} label="topn" value={value} />
   );
 };
 

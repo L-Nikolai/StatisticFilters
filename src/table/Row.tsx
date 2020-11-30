@@ -11,8 +11,7 @@ export interface RowInterface {
   handleClick: MouseEventHandler;
 }
 
-const Row = ({data,handleClick}: RowInterface): React.ReactElement => {
-
+const Row = ({ data, handleClick }: RowInterface): React.ReactElement => {
   const renderCells = data.map((item, index) => (
     <td
       style={{ color: item.highlight ? "blue" : "grey" }}

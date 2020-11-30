@@ -16,7 +16,11 @@ export const getValue = (
   return numValue;
 };
 
-const Percentile = ({firstPercentileValue,secondPercentileValue,changePercentile}: Percentile) => {
+const Percentile = ({
+  firstPercentileValue,
+  secondPercentileValue,
+  changePercentile,
+}: Percentile) => {
   const [isValid, changeIsValid] = useState(true);
 
   const onFirstChange = useCallback(

@@ -11,7 +11,7 @@ interface Range {
 const checkedRange = (numValue: number): boolean =>
   numValue >= -100 && numValue <= 100;
 
-const Range = ({minRange,maxRange,changeRange}: Range) => {
+const Range = ({ minRange, maxRange, changeRange }: Range) => {
   const [isValid, changeIsValid] = useState(true);
 
   const changeMinRange = useCallback(
