@@ -5,69 +5,68 @@ import StatisticFilters from "./statisticFilters";
 const setStatisticFilter = jest.fn();
 
 describe("StatisticFilters components", () => {
-  test("should  render topN", () => {
+  test("should be render topN", () => {
     render(
       <StatisticFilters
-        changeTopN={() => {}}
-        topN={10}
-        statisticFilter="topN"
-        setStatisticFilter={setStatisticFilter}
-        minRange={-100}
-        maxRange={90}
-        changeRange={() => {}}
-        firstPercentileValue={0}
-        secondPercentileValue={100}
-        changePercentile={() => {}}
+        filter={{ type: "topN", option: { value: 0 } }}
+        changeFilter={() => {}}
       />
     );
-    const percentileelement = screen.getByLabelText(/select/i);
+    const topNElement = screen.getByLabelText(/topN/i);
 
-    fireEvent.change(percentileelement, { target: { value: "topN" } });
-
-    expect(setStatisticFilter.mock.calls[0][0]).toEqual("topN");
+    expect(topNElement).toBeInTheDocument();
+    expect((topNElement as HTMLInputElement).value).toEqual("0");
   });
 
-  test("should  render percentile", () => {
+  test("should be render percentile", () => {
     render(
       <StatisticFilters
-        changeTopN={() => {}}
-        topN={10}
-        statisticFilter="percentile"
-        setStatisticFilter={setStatisticFilter}
-        minRange={-100}
-        maxRange={90}
-        changeRange={() => {}}
-        firstPercentileValue={0}
-        secondPercentileValue={100}
-        changePercentile={() => {}}
+        filter={{ type: "percentile", option: { min: 0, max: 100 } }}
+        changeFilter={() => {}}
       />
     );
-    const percentileelement = screen.getByLabelText(/select/i);
+    const firstPercentileElement = screen.getByLabelText(/inputfirst/i);
+    const secondPercentileElement = screen.getByLabelText(/inputsecond/i);
 
-    fireEvent.change(percentileelement, { target: { value: "percentile" } });
+    expect(firstPercentileElement).toBeInTheDocument();
+    expect(secondPercentileElement).toBeInTheDocument();
+    expect((firstPercentileElement as HTMLInputElement).value).toEqual("0");
+    expect((secondPercentileElement as HTMLInputElement).value).toEqual("100");
+  });
 
-    expect(setStatisticFilter.mock.calls[0][0]).toEqual("percentile");
+  test("should be trigger changeFilter", () => {
+    const changeFilter = jest.fn();
+    render(
+      <StatisticFilters
+        filter={{ type: "topN", option: { value: 0 } }}
+        changeFilter={changeFilter}
+      />
+    );
+    const topNElement = screen.getByLabelText(/topN/i);
+
+    fireEvent.change(topNElement, { target: { value: "10" } });
+
+    expect(changeFilter.mock.calls[0][0]).toEqual({
+      type: "topN",
+      option: { value: 10 },
+    });
   });
 
   test("should  render range", () => {
+    const changeFilter = jest.fn();
     render(
       <StatisticFilters
-        changeTopN={() => {}}
-        topN={10}
-        statisticFilter="range"
-        setStatisticFilter={setStatisticFilter}
-        minRange={-100}
-        maxRange={90}
-        changeRange={() => {}}
-        firstPercentileValue={0}
-        secondPercentileValue={100}
-        changePercentile={() => {}}
+        filter={{ type: "percentile", option: { min: 0, max: 100 } }}
+        changeFilter={changeFilter}
       />
     );
-    const percentileelement = screen.getByLabelText(/select/i);
+    const rangeElement = screen.getByLabelText(/select/i);
 
-    fireEvent.change(percentileelement, { target: { value: "range" } });
+    fireEvent.change(rangeElement, { target: { value: "range" } });
 
-    expect(setStatisticFilter.mock.calls[0][0]).toEqual("range");
+    expect(changeFilter.mock.calls[0][0]).toEqual({
+      type: "range",
+      option: { min: 0, max: 100 },
+    });
   });
 });

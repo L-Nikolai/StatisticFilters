@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import StatisticFilters, {
   statisticFilterType,
+  Filter,
 } from "./StatisicFilterComponents/statisticFilters";
 import View from "./tableComponents/View";
 
@@ -15,6 +16,11 @@ const App = () => {
     changePercentile,
   ] = useState([0, 100]);
 
+  const [filter, changeFilter] = useState<Filter>({
+    type: "percentile",
+    option: { min: 0, max: 100 },
+  });
+
   return (
     <>
       <View
@@ -28,18 +34,7 @@ const App = () => {
         secondPercentileValue={secondPercentileValue}
         changePercentile={changePercentile}
       />
-      <StatisticFilters
-        topN={topN}
-        changeTopN={changeTopN}
-        statisticFilter={statisticFilter}
-        setStatisticFilter={setStatisticFilter}
-        minRange={minRange}
-        maxRange={maxRange}
-        changeRange={changeRange}
-        firstPercentileValue={firstPercentileValue}
-        secondPercentileValue={secondPercentileValue}
-        changePercentile={changePercentile}
-      />
+      <StatisticFilters filter={filter} changeFilter={changeFilter} />
     </>
   );
 };

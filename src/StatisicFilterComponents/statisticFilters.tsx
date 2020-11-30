@@ -1,33 +1,37 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import TopN from "./topN";
 import Percentile from "./percentile";
 import Range from "./range";
 
 export type statisticFilterType = "percentile" | "topN" | "range";
+
+type PercentileFilter = {
+  type: "percentile";
+  option: { min: number; max: number };
+};
+type RangeFilter = { type: "range"; option: { min: number; max: number } };
+type TopNFilter = { type: "topN"; option: { value: number } };
+export type Filter = PercentileFilter | TopNFilter | RangeFilter;
+
 interface StatisticFilters {
-  changeTopN: (value: number) => void;
-  topN: number;
-  statisticFilter: string;
-  setStatisticFilter: (value: statisticFilterType) => void;
-  minRange: number;
-  maxRange: number;
-  changeRange: (value: [number, number]) => void;
-  firstPercentileValue: number;
-  secondPercentileValue: number;
-  changePercentile: (value: [number, number]) => void;
+  filter: Filter;
+  changeFilter: (value: Filter) => void;
 }
 
 const StatisticFilters = (prop: StatisticFilters) => {
+  const filter = prop.filter; // {type: 'topN', option: {value: 0}
+  const changeFilter = prop.changeFilter;
+
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
       const { value } = event.target;
 
       if (value === "percentile") {
-        prop.setStatisticFilter("percentile");
+        changeFilter({ type: "percentile", option: { min: 0, max: 100 } });
       } else if (value === "topN") {
-        prop.setStatisticFilter("topN");
+        changeFilter({ type: "topN", option: { value: 0 } });
       } else {
-        prop.setStatisticFilter("range");
+        changeFilter({ type: "range", option: { min: 0, max: 100 } });
       }
     },
     []
@@ -40,29 +44,32 @@ const StatisticFilters = (prop: StatisticFilters) => {
         defaultValue="percentile"
         aria-label="select"
       >
-        <option value="percentile">
-          Percentile
-        </option>
-        <option value="topN">
-          TopN
-        </option>
-        <option value="range">
-          Range
-        </option>
+        <option value="percentile">Percentile</option>
+        <option value="topN">TopN</option>
+        <option value="range">Range</option>
       </select>{" "}
-      {prop.statisticFilter === "percentile" ? (
+      {filter.type === "percentile" ? (
         <Percentile
-          firstPercentileValue={prop.firstPercentileValue}
-          secondPercentileValue={prop.secondPercentileValue}
-          changePercentile={prop.changePercentile}
+          firstPercentileValue={filter.option.min}
+          secondPercentileValue={filter.option.max}
+          changePercentile={([min, max]) => {
+            changeFilter({ type: "percentile", option: { min, max } });
+          }}
         />
-      ) : prop.statisticFilter === "topN" ? (
-        <TopN value={prop.topN} changeValue={prop.changeTopN} />
+      ) : filter.type === "topN" ? (
+        <TopN
+          value={filter.option.value}
+          changeValue={(value) => {
+            changeFilter({ type: "topN", option: { value } });
+          }}
+        />
       ) : (
         <Range
-          minRange={prop.minRange}
-          maxRange={prop.maxRange}
-          changeRange={prop.changeRange}
+          minRange={filter.option.min}
+          maxRange={filter.option.max}
+          changeRange={([min, max]) => {
+            changeFilter({ type: "range", option: { min, max } });
+          }}
         />
       )}
     </>
