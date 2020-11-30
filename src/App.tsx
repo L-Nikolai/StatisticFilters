@@ -6,33 +6,31 @@ import StatisticFilters, {
 import View from "./tableComponents/View";
 
 const App = () => {
-  const [topN, changeTopN] = useState(0);
-  const [statisticFilter, setStatisticFilter] = useState<statisticFilterType>(
-    "percentile"
-  );
-  const [[minRange, maxRange], changeRange] = useState([-100, 100]);
-  const [
-    [firstPercentileValue, secondPercentileValue],
-    changePercentile,
-  ] = useState([0, 100]);
-
   const [filter, changeFilter] = useState<Filter>({
     type: "percentile",
     option: { min: 0, max: 100 },
   });
 
+  const topN = filter.type === "topN" ? filter.option.value : 0;
+  const minRange = filter.type === "range" ? filter.option.min : 0;
+  const maxRange = filter.type === "range" ? filter.option.max : 0;
+  const firstPercentileValue =
+    filter.type === "percentile" ? filter.option.min : 0;
+  const secondPercentileValue =
+    filter.type === "percentile" ? filter.option.max : 0;
+
   return (
     <>
       <View
         topN={topN}
-        changeTopN={changeTopN}
+        changeTopN={() => {}}
         minRange={minRange}
         maxRange={maxRange}
-        changeRange={changeRange}
-        statisticFilter={statisticFilter}
+        changeRange={() => {}}
+        statisticFilter={filter.type}
         firstPercentileValue={firstPercentileValue}
         secondPercentileValue={secondPercentileValue}
-        changePercentile={changePercentile}
+        changePercentile={() => {}}
       />
       <StatisticFilters filter={filter} changeFilter={changeFilter} />
     </>

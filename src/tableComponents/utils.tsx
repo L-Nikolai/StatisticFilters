@@ -82,7 +82,7 @@ export const getPercentile = (
   secondPercentileValue: number
 ): DataItem[] => {
   const dataArr = sortData(data);
-  const array = dataArr.slice();
+  const array = dataArr.reverse();
   let min = Math.floor((array.length / 100) * firstPercentileValue);
   let max = Math.ceil((array.length / 100) * secondPercentileValue);
 

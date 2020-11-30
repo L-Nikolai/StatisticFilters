@@ -132,6 +132,28 @@ describe("utils", () => {
         ],
       ]);
     });
+
+    test("shoold return higlight array with last highlight element", () => {
+      let i = 0;
+      chanceInstance.integer.mockImplementation(() => ++i);
+      const array = get2DData(2, 2);
+
+      const result = getHighlightPercentile(
+        array,
+        getPercentile(array, 99, 100)
+      );
+
+      expect(result).toEqual([
+        [
+          { highlight: false, id: "00", value: 1 },
+          { highlight: false, id: "01", value: 2 },
+        ],
+        [
+          { highlight: false, id: "10", value: 3 },
+          { highlight: true, id: "11", value: 4 },
+        ],
+      ]);
+    });
   });
 
   describe("getTopN utils", () => {

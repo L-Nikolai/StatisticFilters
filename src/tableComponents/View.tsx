@@ -2,6 +2,7 @@ import { resolveSoa } from "dns";
 import React, { useCallback, useEffect, useState } from "react";
 import reportWebVitals from "../reportWebVitals";
 import Row, { DataItem } from "./Row";
+import { Filter } from "../StatisicFilterComponents/statisticFilters";
 import {
   get2DData,
   getHighlightTopN,
