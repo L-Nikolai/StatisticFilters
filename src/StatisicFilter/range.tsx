@@ -11,11 +11,8 @@ interface Range {
 const checkedRange = (numValue: number): boolean =>
   numValue >= -100 && numValue <= 100;
 
-const Range = (prop: Range) => {
+const Range = ({minRange,maxRange,changeRange}: Range) => {
   const [isValid, changeIsValid] = useState(true);
-  const minRange = prop.minRange;
-  const maxRange = prop.maxRange;
-  const changeRange = prop.changeRange;
 
   const changeMinRange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {

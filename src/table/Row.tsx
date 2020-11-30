@@ -11,15 +11,14 @@ export interface RowInterface {
   handleClick: MouseEventHandler;
 }
 
-const Row = (props: RowInterface): React.ReactElement => {
-  const data = props.data;
+const Row = ({data,handleClick}: RowInterface): React.ReactElement => {
 
   const renderCells = data.map((item, index) => (
     <td
       style={{ color: item.highlight ? "blue" : "grey" }}
       className={styles.cell}
       key={index}
-      onClick={props.handleClick}
+      onClick={handleClick}
       aria-label="cell"
     >
       {item.value}

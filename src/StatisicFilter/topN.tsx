@@ -5,12 +5,12 @@ interface TopN {
   value: number;
 }
 
-const TopN = (prop: TopN) => {
+const TopN = ({value,changeValue}: TopN) => {
   const [isValid, changeIsValid] = useState(true);
 
   const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    prop.changeValue(parseInt(value, 10));
+    changeValue(parseInt(value, 10));
     if (parseInt(value, 10) >= 1) {
       changeIsValid(true);
     } else {
@@ -23,7 +23,7 @@ const TopN = (prop: TopN) => {
       isValid={isValid}
       onChange={onChange}
       label="topn"
-      value={prop.value}
+      value={value}
     />
   );
 };

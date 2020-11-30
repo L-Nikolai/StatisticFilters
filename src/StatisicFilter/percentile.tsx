@@ -16,11 +16,8 @@ export const getValue = (
   return numValue;
 };
 
-const Percentile = (prop: Percentile) => {
+const Percentile = ({firstPercentileValue,secondPercentileValue,changePercentile}: Percentile) => {
   const [isValid, changeIsValid] = useState(true);
-  const firstPercentileValue = prop.firstPercentileValue;
-  const secondPercentileValue = prop.secondPercentileValue;
-  const changePercentile = prop.changePercentile;
 
   const onFirstChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
