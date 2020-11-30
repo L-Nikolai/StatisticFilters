@@ -13,48 +13,40 @@ import {
 } from "./utils";
 
 interface View {
-  topN: number;
-  changeTopN: (value: number) => void;
-  minRange: number;
-  maxRange: number;
-  changeRange: (value: [number, number]) => void;
-  statisticFilter: string;
-  firstPercentileValue: number;
-  secondPercentileValue: number;
-  changePercentile: (value: [number, number]) => void;
+  filter: Filter;
+  changeFilter: (value: Filter) => void;
 }
 
-const View = (props: View) => {
-  const topN = props.topN;
-  const changeTopN = props.changeTopN;
-  const minRange = props.minRange;
-  const maxRange = props.maxRange;
-  const changeRange = props.changeRange;
-  const statisticFilter = props.statisticFilter;
-  const firstPercentileValue = props.firstPercentileValue;
-  const secondPercentileValue = props.secondPercentileValue;
-  const changePercentile = props.changePercentile;
-
+const View = ({ filter, changeFilter }: View) => {
   const [data2D] = useState(get2DData(10, 10));
 
   const getHighlightData = (): DataItem[][] => {
-    if (statisticFilter === "topN") {
-      return getHighlightTopN(data2D, topN);
-    } else if (statisticFilter === "range") {
-      return getHighlightRange(data2D, minRange, maxRange);
+    if (filter.type === "topN") {
+      return getHighlightTopN(data2D, filter.option.value);
+    } else if (filter.type === "range") {
+      return getHighlightRange(data2D, filter.option.min, filter.option.max);
     } else {
       return getHighlightPercentile(
         data2D,
-        getPercentile(data2D, firstPercentileValue, secondPercentileValue)
+        getPercentile(data2D, filter.option.min, filter.option.max)
       );
     }
   };
 
-  const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
-    const value = event.currentTarget.innerText;
-    const numValue = parseInt(value, 10);
-    changeTopN(getTopN(data2D, numValue));
-  }, []);
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      const value = event.currentTarget.innerText;
+      const numValue = parseInt(value, 10);
+
+      if (filter.type === "topN") {
+        changeFilter({
+          type: "topN",
+          option: { value: getTopN(data2D, numValue) },
+        });
+      }
+    },
+    [filter.type, changeFilter]
+  );
 
   return (
     <>

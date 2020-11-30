@@ -3,8 +3,6 @@ import TopN from "./topN";
 import Percentile from "./percentile";
 import Range from "./range";
 
-export type statisticFilterType = "percentile" | "topN" | "range";
-
 type PercentileFilter = {
   type: "percentile";
   option: { min: number; max: number };
@@ -19,7 +17,7 @@ interface StatisticFilters {
 }
 
 const StatisticFilters = (prop: StatisticFilters) => {
-  const filter = prop.filter; // {type: 'topN', option: {value: 0}
+  const filter = prop.filter;
   const changeFilter = prop.changeFilter;
 
   const handleChange = useCallback(

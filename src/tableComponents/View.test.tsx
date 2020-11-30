@@ -6,15 +6,8 @@ describe("View topN", () => {
   test("should be rendered table", () => {
     render(
       <View
-        topN={1}
-        changeTopN={() => {}}
-        minRange={-100}
-        maxRange={100}
-        changeRange={() => {}}
-        statisticFilter={"topN"}
-        firstPercentileValue={0}
-        secondPercentileValue={100}
-        changePercentile={() => {}}
+        filter={{ type: "topN", option: { value: 0 } }}
+        changeFilter={() => {}}
       />
     );
 
@@ -26,15 +19,8 @@ describe("View topN", () => {
   test("should be rendered table 10x10", () => {
     render(
       <View
-        topN={1}
-        changeTopN={() => {}}
-        minRange={-100}
-        maxRange={100}
-        changeRange={() => {}}
-        statisticFilter={"topN"}
-        firstPercentileValue={0}
-        secondPercentileValue={100}
-        changePercentile={() => {}}
+        filter={{ type: "topN", option: { value: 0 } }}
+        changeFilter={() => {}}
       />
     );
 
@@ -46,15 +32,8 @@ describe("View topN", () => {
   test("should be 10 elements is grey then topN = 90", () => {
     render(
       <View
-        topN={90}
-        changeTopN={() => {}}
-        minRange={-100}
-        maxRange={100}
-        changeRange={() => {}}
-        statisticFilter={"topN"}
-        firstPercentileValue={0}
-        secondPercentileValue={100}
-        changePercentile={() => {}}
+        filter={{ type: "topN", option: { value: 90 } }}
+        changeFilter={() => {}}
       />
     );
     const viewElement = screen.getAllByRole(/cell/);
@@ -67,15 +46,8 @@ describe("View topN", () => {
   test("should be 3 elements is blye then topN =3", () => {
     render(
       <View
-        topN={3}
-        changeTopN={() => {}}
-        minRange={-100}
-        maxRange={100}
-        changeRange={() => {}}
-        statisticFilter={"topN"}
-        firstPercentileValue={0}
-        secondPercentileValue={100}
-        changePercentile={() => {}}
+        filter={{ type: "topN", option: { value: 3 } }}
+        changeFilter={() => {}}
       />
     );
     const viewElement = screen.getAllByRole(/cell/);
@@ -89,15 +61,8 @@ describe("View  range", () => {
   test("should be render highlighted table at Range ", () => {
     render(
       <View
-        topN={90}
-        changeTopN={() => {}}
-        minRange={-100}
-        maxRange={100}
-        changeRange={() => {}}
-        statisticFilter={"range"}
-        firstPercentileValue={0}
-        secondPercentileValue={100}
-        changePercentile={() => {}}
+        filter={{ type: "range", option: { min: -100, max: 100 } }}
+        changeFilter={() => {}}
       />
     );
     const viewElement = screen.getAllByRole(/cell/);
@@ -112,15 +77,8 @@ describe("View  percentile", () => {
   test("should be render table at percentile ", () => {
     render(
       <View
-        topN={90}
-        changeTopN={() => {}}
-        minRange={-100}
-        maxRange={100}
-        changeRange={() => {}}
-        statisticFilter={"percentile"}
-        firstPercentileValue={0}
-        secondPercentileValue={100}
-        changePercentile={() => {}}
+        filter={{ type: "percentile", option: { min: 0, max: 100 } }}
+        changeFilter={() => {}}
       />
     );
     const viewElement = screen.getAllByRole(/cell/);
