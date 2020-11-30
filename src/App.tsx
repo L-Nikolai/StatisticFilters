@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import StatisticFilters, {
-  Filter,
-} from "./StatisicFilterComponents/statisticFilters";
-import View from "./tableComponents/View";
+import StatisticFilters, { Filter } from "./StatisicFilter";
+import View from "./table";
 
 const App = () => {
   const [filter, changeFilter] = useState<Filter>({
