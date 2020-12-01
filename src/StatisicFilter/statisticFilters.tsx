@@ -14,9 +14,11 @@ export type Filter = PercentileFilter | TopNFilter | RangeFilter;
 interface StatisticFilters {
   filter: Filter;
   changeFilter: (value: Filter) => void;
+  minValue:number
+  maxValue:number
 }
 
-const StatisticFilters = ({ filter, changeFilter }: StatisticFilters) => {
+const StatisticFilters = ({ filter, changeFilter ,minValue,maxValue}: StatisticFilters) => {
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
       const { value } = event.target;
@@ -61,6 +63,8 @@ const StatisticFilters = ({ filter, changeFilter }: StatisticFilters) => {
           changeRange={([min, max]) => {
             changeFilter({ type: "range", option: { min, max } });
           }}
+          minValue={minValue}
+          maxValue={maxValue}
         />
       )}
     </>
