@@ -34,11 +34,7 @@ const StatisticFilters = ({ filter, changeFilter }: StatisticFilters) => {
 
   return (
     <>
-      <select
-        onChange={handleChange}
-        defaultValue="percentile"
-        aria-label="select"
-      >
+      <select onChange={handleChange} value={filter.type} aria-label="select">
         <option value="percentile">Percentile</option>
         <option value="topN">TopN</option>
         <option value="range">Range</option>

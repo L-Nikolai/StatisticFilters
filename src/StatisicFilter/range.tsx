@@ -1,4 +1,4 @@
-import React, { useCallback} from "react";
+import React, { useCallback } from "react";
 import Input from "./input";
 import { getValue } from "./percentile";
 
@@ -8,9 +8,8 @@ interface Range {
   changeRange: (value: [number, number]) => void;
 }
 
-
 const Range = ({ minRange, maxRange, changeRange }: Range) => {
-  const isValid = minRange<maxRange
+  const isValid = minRange < maxRange;
   const changeMinRange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const numValue = getValue(event);

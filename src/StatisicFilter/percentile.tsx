@@ -1,4 +1,4 @@
-import React, {useCallback } from "react";
+import React, { useCallback } from "react";
 import Input from "./input";
 
 interface Percentile {
@@ -19,8 +19,7 @@ const Percentile = ({
   secondPercentileValue,
   changePercentile,
 }: Percentile) => {
-
-  const isValid= firstPercentileValue < secondPercentileValue 
+  const isValid = firstPercentileValue < secondPercentileValue;
 
   const onFirstChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
