@@ -6,16 +6,10 @@ interface TopN {
 }
 
 const TopN = ({ value, changeValue }: TopN) => {
-  const [isValid, changeIsValid] = useState(true);
-
+  const isValid = value >= 1;
   const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     changeValue(parseInt(value, 10));
-    if (parseInt(value, 10) >= 1) {
-      changeIsValid(true);
-    } else {
-      changeIsValid(false);
-    }
   }, []);
 
   return (

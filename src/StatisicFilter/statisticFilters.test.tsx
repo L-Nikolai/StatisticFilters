@@ -2,10 +2,8 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import StatisticFilters from "./statisticFilters";
 
-const setStatisticFilter = jest.fn();
-
-describe("StatisticFilters components", () => {
-  test("should be render topN", () => {
+describe("StatisticFilters component. TopN behavier", () => {
+  test("should be rendered", () => {
     render(
       <StatisticFilters
         filter={{ type: "topN", option: { value: 0 } }}
@@ -16,8 +14,45 @@ describe("StatisticFilters components", () => {
 
     expect(topNElement).toBeInTheDocument();
     expect((topNElement as HTMLInputElement).value).toEqual("0");
+    expect((topNElement as HTMLInputElement).className).toEqual(
+      expect.stringContaining("input_stile")
+    );
   });
 
+  test("should be invalid when value is negativ ", () => {
+    render(
+      <StatisticFilters
+        filter={{ type: "topN", option: { value: -5 } }}
+        changeFilter={() => {}}
+      />
+    );
+    const topNElement = screen.getByLabelText(/topN/i);
+
+    expect((topNElement as HTMLInputElement).className).toEqual(
+      expect.stringContaining("invalid")
+    );
+  });
+
+  test("should change value", () => {
+    const changeFilter = jest.fn();
+    render(
+      <StatisticFilters
+        filter={{ type: "topN", option: { value: 1 } }}
+        changeFilter={changeFilter}
+      />
+    );
+    const topNelement = screen.getByLabelText(/topn/i);
+
+    fireEvent.change(topNelement, { target: { value: "12" } });
+
+    expect(changeFilter.mock.calls[0][0]).toEqual({
+      type: "topN",
+      option: { value: 12 },
+    });
+  });
+});
+
+describe("StatisticFilters components", () => {
   test("should be render percentile", () => {
     render(
       <StatisticFilters
