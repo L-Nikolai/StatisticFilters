@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback} from "react";
 import Input from "./input";
 import { getValue } from "./percentile";
 
@@ -8,21 +8,13 @@ interface Range {
   changeRange: (value: [number, number]) => void;
 }
 
-const checkedRange = (numValue: number): boolean =>
-  numValue >= -100 && numValue <= 100;
 
 const Range = ({ minRange, maxRange, changeRange }: Range) => {
-  const [isValid, changeIsValid] = useState(true);
-
+  const isValid = minRange<maxRange
   const changeMinRange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const numValue = getValue(event);
-      const inRange = checkedRange(numValue);
-      changeIsValid(inRange);
 
-      if (numValue >= maxRange) {
-        changeIsValid(false);
-      }
       changeRange([numValue, maxRange]);
     },
     [minRange, maxRange]
@@ -31,12 +23,6 @@ const Range = ({ minRange, maxRange, changeRange }: Range) => {
   const changeMaxRange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const numValue = getValue(event);
-      const inRange = checkedRange(numValue);
-      changeIsValid(inRange);
-
-      if (minRange >= numValue) {
-        changeIsValid(false);
-      }
       changeRange([minRange, numValue]);
     },
     [minRange, maxRange]
