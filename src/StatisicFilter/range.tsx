@@ -13,17 +13,19 @@ const inRange = (minV:number,maxV:number,value:number)=> value>=minV && value<=m
 
 
 const Range = ({ minRange, maxRange, changeRange,minValue,maxValue }: Range) => {
-  let isValid = minRange < maxRange;
+  let isValid = minRange < maxRange 
   const changeMinRange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const numValue = getValue(event);
       const isRange =inRange(minValue,maxValue,numValue)
       console.log(isRange)
       if (isRange)  { 
-      changeRange([numValue, maxRange]);
+        isValid =true
       } else {
         isValid = false
       }
+      changeRange([numValue, maxRange]);
+      return isValid
     },
     [minRange, maxRange]
   );
@@ -33,9 +35,13 @@ const Range = ({ minRange, maxRange, changeRange,minValue,maxValue }: Range) => 
       const numValue = getValue(event);
       const isRange =inRange(minValue,maxValue,numValue)
       console.log(isRange)
-      if (isRange) { 
-        changeRange([minRange, numValue]);
+      if (isRange)  { 
+        isValid =true
+      } else {
+        isValid = false
       }
+      changeRange([minRange, numValue]);
+      return isValid
     },
     [minRange, maxRange]
   );

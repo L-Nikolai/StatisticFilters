@@ -8,6 +8,9 @@ describe("StatisticFilters component. TopN behavier", () => {
       <StatisticFilters
         filter={{ type: "topN", option: { value: 0 } }}
         changeFilter={() => {}}
+        minValue={-100}
+        maxValue={100}
+
       />
     );
     const selectElement = screen.getByLabelText(/select/i);
@@ -20,6 +23,8 @@ describe("StatisticFilters component. TopN behavier", () => {
       <StatisticFilters
         filter={{ type: "topN", option: { value: 0 } }}
         changeFilter={() => {}}
+        minValue={-100}
+        maxValue={100}
       />
     );
     const topNElement = screen.getByLabelText(/topN/i);
@@ -36,6 +41,9 @@ describe("StatisticFilters component. TopN behavier", () => {
       <StatisticFilters
         filter={{ type: "topN", option: { value: -5 } }}
         changeFilter={() => {}}
+        minValue={-100}
+        maxValue={100}
+
       />
     );
     const topNElement = screen.getByLabelText(/topN/i);
@@ -51,6 +59,8 @@ describe("StatisticFilters component. TopN behavier", () => {
       <StatisticFilters
         filter={{ type: "topN", option: { value: 1 } }}
         changeFilter={changeFilter}
+        minValue={-100}
+        maxValue={100}
       />
     );
     const topNelement = screen.getByLabelText(/topn/i);
@@ -70,6 +80,8 @@ describe("StatisticFilters component. Percentile behavier", () => {
       <StatisticFilters
         filter={{ type: "percentile", option: { min: 0, max: 100 } }}
         changeFilter={() => {}}
+        minValue={-100}
+        maxValue={100}
       />
     );
     const firstPercentileElement = screen.getByLabelText(/inputfirst/i);
@@ -93,6 +105,8 @@ describe("StatisticFilters component. Percentile behavier", () => {
       <StatisticFilters
         filter={{ type: "percentile", option: { min: 0, max: 100 } }}
         changeFilter={changeFilter}
+        minValue={-100}
+        maxValue={100}
       />
     );
     const percentileFirstElement = screen.getByLabelText(/inputfirst/i);
@@ -116,6 +130,8 @@ describe("StatisticFilters component. Percentile behavier", () => {
       <StatisticFilters
         filter={{ type: "percentile", option: { min: 91, max: 88 } }}
         changeFilter={() => {}}
+        minValue={-100}
+        maxValue={100}
       />
     );
     const firstPercentileElement = screen.getByLabelText(/inputfirst/i);
@@ -132,7 +148,8 @@ describe("StatisticFilters component. Range behavier", () => {
       <StatisticFilters
         filter={{ type: "range", option: { min: -100, max: 100 } }}
         changeFilter={() => {}}
-      />
+        minValue={-100}
+        maxValue={100}      />
     );
     const rangeElement = screen.getByLabelText(/firstInputRange/i);
 
@@ -148,6 +165,8 @@ describe("StatisticFilters component. Range behavier", () => {
       <StatisticFilters
         filter={{ type: "range", option: { min: -100, max: 100 } }}
         changeFilter={changeFilter}
+        minValue={-100}
+        maxValue={100}
       />
     );
     const rangeMinElement = screen.getByLabelText(/firstInputRange/);
@@ -171,6 +190,8 @@ describe("StatisticFilters component. Range behavier", () => {
       <StatisticFilters
         filter={{ type: "range", option: { min: 90, max: 80 } }}
         changeFilter={() => {}}
+        minValue={-100}
+        maxValue={100}
       />
     );
 
@@ -189,6 +210,8 @@ describe("StatisticFilters component", () => {
       <StatisticFilters
         filter={{ type: "percentile", option: { min: 0, max: 100 } }}
         changeFilter={changeFilter}
+        minValue={-100}
+        maxValue={100}
       />
     );
     const selectElement = screen.getByLabelText(/select/i);
