@@ -6,44 +6,36 @@ interface Range {
   minRange: number;
   maxRange: number;
   changeRange: (value: [number, number]) => void;
-  minValue : number;
-  maxValue : number;
+  minValue: number;
+  maxValue: number;
 }
-const inRange = (minV:number,maxV:number,value:number)=> value>=minV && value<=maxV
+const inRange = (minV: number, maxV: number, minR: number, maxR: number) =>
+  minV >= minR && maxV <= maxR;
 
+const Range = ({
+  minRange,
+  maxRange,
+  changeRange,
+  minValue,
+  maxValue,
+}: Range) => {
+  const isValid =
+    minValue < maxValue && inRange(minValue, maxValue, minRange, maxRange);
 
-const Range = ({ minRange, maxRange, changeRange,minValue,maxValue }: Range) => {
-  let isValid = minRange < maxRange 
   const changeMinRange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const numValue = getValue(event);
-      const isRange =inRange(minValue,maxValue,numValue)
-      console.log(isRange)
-      if (isRange)  { 
-        isValid =true
-      } else {
-        isValid = false
-      }
-      changeRange([numValue, maxRange]);
-      return isValid
+      changeRange([numValue, maxValue]);
     },
-    [minRange, maxRange]
+    [minValue, maxValue]
   );
 
   const changeMaxRange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const numValue = getValue(event);
-      const isRange =inRange(minValue,maxValue,numValue)
-      console.log(isRange)
-      if (isRange)  { 
-        isValid =true
-      } else {
-        isValid = false
-      }
-      changeRange([minRange, numValue]);
-      return isValid
+      changeRange([minValue, numValue]);
     },
-    [minRange, maxRange]
+    [minValue, maxValue]
   );
 
   return (

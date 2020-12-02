@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import TopN from "./topN";
 import Percentile from "./percentile";
 import Range from "./range";
@@ -14,11 +14,16 @@ export type Filter = PercentileFilter | TopNFilter | RangeFilter;
 interface StatisticFilters {
   filter: Filter;
   changeFilter: (value: Filter) => void;
-  minValue:number
-  maxValue:number
+  minRange: number;
+  maxRange: number;
 }
 
-const StatisticFilters = ({ filter, changeFilter ,minValue,maxValue}: StatisticFilters) => {
+const StatisticFilters = ({
+  filter,
+  changeFilter,
+  minRange,
+  maxRange,
+}: StatisticFilters) => {
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
       const { value } = event.target;
@@ -28,7 +33,7 @@ const StatisticFilters = ({ filter, changeFilter ,minValue,maxValue}: StatisticF
       } else if (value === "topN") {
         changeFilter({ type: "topN", option: { value: 0 } });
       } else {
-        changeFilter({ type: "range", option: { min: 0, max: 100 } });
+        changeFilter({ type: "range", option: { min: -100, max: 100 } });
       }
     },
     []
@@ -58,13 +63,13 @@ const StatisticFilters = ({ filter, changeFilter ,minValue,maxValue}: StatisticF
         />
       ) : (
         <Range
-          minRange={filter.option.min}
-          maxRange={filter.option.max}
+          minValue={filter.option.min}
+          maxValue={filter.option.max}
           changeRange={([min, max]) => {
             changeFilter({ type: "range", option: { min, max } });
           }}
-          minValue={minValue}
-          maxValue={maxValue}
+          minRange={minRange}
+          maxRange={maxRange}
         />
       )}
     </>

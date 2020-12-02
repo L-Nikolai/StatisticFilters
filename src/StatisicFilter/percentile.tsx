@@ -13,13 +13,17 @@ export const getValue = (
   const numValue = parseFloat(value);
   return numValue;
 };
+const checkRange = (firstV: number, secondV: number): boolean =>
+  firstV >= 0 && secondV <= 100;
 
 const Percentile = ({
   firstPercentileValue,
   secondPercentileValue,
   changePercentile,
 }: Percentile) => {
-  const isValid = firstPercentileValue < secondPercentileValue;
+  const isValid =
+    firstPercentileValue < secondPercentileValue &&
+    checkRange(firstPercentileValue, secondPercentileValue);
 
   const onFirstChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {

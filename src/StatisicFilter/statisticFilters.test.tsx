@@ -8,9 +8,8 @@ describe("StatisticFilters component. TopN behavier", () => {
       <StatisticFilters
         filter={{ type: "topN", option: { value: 0 } }}
         changeFilter={() => {}}
-        minValue={-100}
-        maxValue={100}
-
+        minRange={-100}
+        maxRange={100}
       />
     );
     const selectElement = screen.getByLabelText(/select/i);
@@ -23,8 +22,8 @@ describe("StatisticFilters component. TopN behavier", () => {
       <StatisticFilters
         filter={{ type: "topN", option: { value: 0 } }}
         changeFilter={() => {}}
-        minValue={-100}
-        maxValue={100}
+        minRange={-100}
+        maxRange={100}
       />
     );
     const topNElement = screen.getByLabelText(/topN/i);
@@ -41,9 +40,8 @@ describe("StatisticFilters component. TopN behavier", () => {
       <StatisticFilters
         filter={{ type: "topN", option: { value: -5 } }}
         changeFilter={() => {}}
-        minValue={-100}
-        maxValue={100}
-
+        minRange={-100}
+        maxRange={100}
       />
     );
     const topNElement = screen.getByLabelText(/topN/i);
@@ -59,8 +57,8 @@ describe("StatisticFilters component. TopN behavier", () => {
       <StatisticFilters
         filter={{ type: "topN", option: { value: 1 } }}
         changeFilter={changeFilter}
-        minValue={-100}
-        maxValue={100}
+        minRange={-100}
+        maxRange={100}
       />
     );
     const topNelement = screen.getByLabelText(/topn/i);
@@ -75,13 +73,33 @@ describe("StatisticFilters component. TopN behavier", () => {
 });
 
 describe("StatisticFilters component. Percentile behavier", () => {
+  test("should be invalid then value < min && value >max", () => {
+    render(
+      <StatisticFilters
+        filter={{ type: "percentile", option: { min: -1, max: 110 } }}
+        changeFilter={() => {}}
+        minRange={-100}
+        maxRange={100}
+      />
+    );
+    const rangeFirstElement = screen.getByLabelText(/inputfirst/i);
+    const rangeSecondElement = screen.getByLabelText(/inputsecond/i);
+
+    expect((rangeFirstElement as HTMLInputElement).className).toEqual(
+      expect.stringContaining("invalid")
+    );
+    expect((rangeSecondElement as HTMLInputElement).className).toEqual(
+      expect.stringContaining("invalid")
+    );
+  });
+
   test("should be rendered", () => {
     render(
       <StatisticFilters
         filter={{ type: "percentile", option: { min: 0, max: 100 } }}
         changeFilter={() => {}}
-        minValue={-100}
-        maxValue={100}
+        minRange={-100}
+        maxRange={100}
       />
     );
     const firstPercentileElement = screen.getByLabelText(/inputfirst/i);
@@ -105,8 +123,8 @@ describe("StatisticFilters component. Percentile behavier", () => {
       <StatisticFilters
         filter={{ type: "percentile", option: { min: 0, max: 100 } }}
         changeFilter={changeFilter}
-        minValue={-100}
-        maxValue={100}
+        minRange={-100}
+        maxRange={100}
       />
     );
     const percentileFirstElement = screen.getByLabelText(/inputfirst/i);
@@ -130,8 +148,8 @@ describe("StatisticFilters component. Percentile behavier", () => {
       <StatisticFilters
         filter={{ type: "percentile", option: { min: 91, max: 88 } }}
         changeFilter={() => {}}
-        minValue={-100}
-        maxValue={100}
+        minRange={-100}
+        maxRange={100}
       />
     );
     const firstPercentileElement = screen.getByLabelText(/inputfirst/i);
@@ -148,8 +166,9 @@ describe("StatisticFilters component. Range behavier", () => {
       <StatisticFilters
         filter={{ type: "range", option: { min: -100, max: 100 } }}
         changeFilter={() => {}}
-        minValue={-100}
-        maxValue={100}      />
+        minRange={-100}
+        maxRange={100}
+      />
     );
     const rangeElement = screen.getByLabelText(/firstInputRange/i);
 
@@ -165,8 +184,8 @@ describe("StatisticFilters component. Range behavier", () => {
       <StatisticFilters
         filter={{ type: "range", option: { min: -100, max: 100 } }}
         changeFilter={changeFilter}
-        minValue={-100}
-        maxValue={100}
+        minRange={-100}
+        maxRange={100}
       />
     );
     const rangeMinElement = screen.getByLabelText(/firstInputRange/);
@@ -190,8 +209,8 @@ describe("StatisticFilters component. Range behavier", () => {
       <StatisticFilters
         filter={{ type: "range", option: { min: 90, max: 80 } }}
         changeFilter={() => {}}
-        minValue={-100}
-        maxValue={100}
+        minRange={-100}
+        maxRange={100}
       />
     );
 
@@ -201,17 +220,37 @@ describe("StatisticFilters component. Range behavier", () => {
       expect.stringContaining("invalid")
     );
   });
+
+  test("should be invalid then value < min && value >max", () => {
+    render(
+      <StatisticFilters
+        filter={{ type: "range", option: { min: -101, max: 120 } }}
+        changeFilter={() => {}}
+        minRange={-100}
+        maxRange={100}
+      />
+    );
+    const rangeFirstElement = screen.getByLabelText(/firstInputRange/i);
+    const rangeSecondElement = screen.getByLabelText(/secondInputRange/i);
+
+    expect((rangeFirstElement as HTMLInputElement).className).toEqual(
+      expect.stringContaining("invalid")
+    );
+    expect((rangeSecondElement as HTMLInputElement).className).toEqual(
+      expect.stringContaining("invalid")
+    );
+  });
 });
 
 describe("StatisticFilters component", () => {
-  test("should be trigger changeFilter", () => {
+  test("should be render topN when value === topN ", () => {
     const changeFilter = jest.fn();
     render(
       <StatisticFilters
         filter={{ type: "percentile", option: { min: 0, max: 100 } }}
         changeFilter={changeFilter}
-        minValue={-100}
-        maxValue={100}
+        minRange={-100}
+        maxRange={100}
       />
     );
     const selectElement = screen.getByLabelText(/select/i);
@@ -221,6 +260,46 @@ describe("StatisticFilters component", () => {
     expect(changeFilter.mock.calls[0][0]).toEqual({
       type: "topN",
       option: { value: 0 },
+    });
+  });
+
+  test("should be render topN when value === range ", () => {
+    const changeFilter = jest.fn();
+    render(
+      <StatisticFilters
+        filter={{ type: "range", option: { min: -100, max: 100 } }}
+        changeFilter={changeFilter}
+        minRange={-100}
+        maxRange={100}
+      />
+    );
+    const selectElement = screen.getByLabelText(/select/i);
+
+    fireEvent.change(selectElement, { target: { value: "range" } });
+
+    expect(changeFilter.mock.calls[0][0]).toEqual({
+      type: "range",
+      option: { min: -100, max: 100 },
+    });
+  });
+
+  test("should be render topN when value === percentile ", () => {
+    const changeFilter = jest.fn();
+    render(
+      <StatisticFilters
+        filter={{ type: "range", option: { min: 0, max: 100 } }}
+        changeFilter={changeFilter}
+        minRange={-100}
+        maxRange={100}
+      />
+    );
+    const selectElement = screen.getByLabelText(/select/i);
+
+    fireEvent.change(selectElement, { target: { value: "percentile" } });
+
+    expect(changeFilter.mock.calls[0][0]).toEqual({
+      type: "percentile",
+      option: { min: 0, max: 100 },
     });
   });
 });
