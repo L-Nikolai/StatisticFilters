@@ -5,12 +5,9 @@ const chance = new Chance();
 const sortData = (data: DataItem[][]) => {
   return data.flat().sort((a, b) => (a.value < b.value ? 1 : -1));
 };
-export const getHighlightTopN = (
-  data: DataItem[][],
-  topN: number
-): DataItem[][] => {
+
+const getHighlightArrayData = (data: DataItem[][]) => {
   const highlightArray: DataItem[][] = [];
-  const sortedTopNArray: DataItem[] = sortData(data).slice(0, topN);
   for (let i = 0; i < data.length; i++) {
     highlightArray[i] = [];
     for (let j = 0; j < data[i].length; j++) {
@@ -19,64 +16,61 @@ export const getHighlightTopN = (
         highlight: false,
         id: data[i][j].id,
       };
-      for (let k = 0; k < sortedTopNArray.length; k++) {
-        if (data[i][j].id === sortedTopNArray[k].id) {
-          highlightArray[i][j].highlight = true;
-        }
-      }
     }
   }
   return highlightArray;
 };
+
+export const getHighlightTopN = (
+  data: DataItem[][],
+  topN: number
+): DataItem[][] => {
+  const data2D = getHighlightArrayData(data);
+  const sortedTopNArray: DataItem[] = sortData(data).slice(0, topN);
+  data2D.flat().forEach((item) => {
+    if (sortedTopNArray.find((elem) => item.id === elem.id)) {
+      item.highlight = true;
+    }
+  });
+
+  return data2D;
+};
+
 export const getHighlightRange = (
   data: DataItem[][],
   minRange: number,
   maxRange: number
 ) => {
-  const highlightArray: DataItem[][] = [];
-  for (let i = 0; i < data.length; i++) {
-    highlightArray[i] = [];
-    for (let j = 0; j < data[i].length; j++) {
-      highlightArray[i][j] = {
-        value: data[i][j].value,
-        highlight: false,
-        id: data[i][j].id,
-      };
-      if (
-        highlightArray[i][j].value >= minRange &&
-        highlightArray[i][j].value <= maxRange
-      )
-        highlightArray[i][j].highlight = true;
+  const highlightArray = getHighlightArrayData(data);
+  highlightArray.flat().forEach((item) => {
+    if (item.value >= minRange && item.value <= maxRange) {
+      item.highlight = true;
     }
-  }
+  });
 
   return highlightArray;
 };
 
 export const getHighlightPercentile = (
   data: DataItem[][],
-  sortedArray: DataItem[]
+  firstPercentileValue: number,
+  secondPercentileValue: number
 ) => {
-  const highlightArray: DataItem[][] = [];
-  for (let i = 0; i < data.length; i++) {
-    highlightArray[i] = [];
-    for (let j = 0; j < data[i].length; j++) {
-      highlightArray[i][j] = {
-        value: data[i][j].value,
-        highlight: false,
-        id: data[i][j].id,
-      };
-      for (let k = 0; k < sortedArray.length; k++) {
-        if (data[i][j].id === sortedArray[k].id) {
-          highlightArray[i][j].highlight = true;
-        }
-      }
+  const sortedArray = getPercentile(
+    data,
+    firstPercentileValue,
+    secondPercentileValue
+  );
+  const highlightArray = getHighlightArrayData(data);
+  highlightArray.flat().forEach((item) => {
+    if (sortedArray.find((elem) => item.id === elem.id)) {
+      item.highlight = true;
     }
-  }
+  });
   return highlightArray;
 };
 
-export const getPercentile = (
+const getPercentile = (
   data: DataItem[][],
   firstPercentileValue: number,
   secondPercentileValue: number

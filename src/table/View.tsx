@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import Row, { DataItem } from "./Row";
 import { Filter } from "../StatisicFilter/statisticFilters";
 import {
@@ -7,7 +7,6 @@ import {
   getHighlightRange,
   getTopN,
   getHighlightPercentile,
-  getPercentile,
 } from "./utils";
 
 interface View {
@@ -17,7 +16,6 @@ interface View {
 
 const View = ({ filter, changeFilter }: View) => {
   const [data2D] = useState(get2DData(10, 10));
-
   const getHighlightData = (): DataItem[][] => {
     if (filter.type === "topN") {
       return getHighlightTopN(data2D, filter.option.value);
@@ -26,7 +24,8 @@ const View = ({ filter, changeFilter }: View) => {
     } else {
       return getHighlightPercentile(
         data2D,
-        getPercentile(data2D, filter.option.min, filter.option.max)
+        filter.option.min,
+        filter.option.max
       );
     }
   };

@@ -116,10 +116,7 @@ describe("utils", () => {
       chanceInstance.integer.mockImplementation(() => ++i);
       const array = get2DData(2, 2);
 
-      const result = getHighlightPercentile(
-        array,
-        getPercentile(array, 40, 60)
-      );
+      const result = getHighlightPercentile(array, 40, 60);
 
       expect(result).toEqual([
         [
@@ -138,10 +135,7 @@ describe("utils", () => {
       chanceInstance.integer.mockImplementation(() => ++i);
       const array = get2DData(2, 2);
 
-      const result = getHighlightPercentile(
-        array,
-        getPercentile(array, 99, 100)
-      );
+      const result = getHighlightPercentile(array, 99, 100);
 
       expect(result).toEqual([
         [
