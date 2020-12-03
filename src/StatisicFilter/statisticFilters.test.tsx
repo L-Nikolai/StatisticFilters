@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import StatisticFilters from "./statisticFilters";
 
 describe("StatisticFilters component. TopN behavier", () => {
-  test("should be ", () => {
+  test("should be selected topN", () => {
     render(
       <StatisticFilters
         filter={{ type: "topN", option: { value: 0 } }}
@@ -35,7 +35,7 @@ describe("StatisticFilters component. TopN behavier", () => {
     );
   });
 
-  test("should be invalid when value is negativ ", () => {
+  test("should be invalid when value is negativ", () => {
     render(
       <StatisticFilters
         filter={{ type: "topN", option: { value: -5 } }}
@@ -143,7 +143,7 @@ describe("StatisticFilters component. Percentile behavier", () => {
     });
   });
 
-  test("shoold be is ivalid when input1 > input2 ", () => {
+  test("shoold be is ivalid when input1 > input2", () => {
     render(
       <StatisticFilters
         filter={{ type: "percentile", option: { min: 91, max: 88 } }}
@@ -243,7 +243,7 @@ describe("StatisticFilters component. Range behavier", () => {
 });
 
 describe("StatisticFilters component", () => {
-  test("should be render topN when value === topN ", () => {
+  test("should be render topN when value = topN", () => {
     const changeFilter = jest.fn();
     render(
       <StatisticFilters
@@ -263,7 +263,7 @@ describe("StatisticFilters component", () => {
     });
   });
 
-  test("should be render topN when value === range ", () => {
+  test("should be render topN when value === range", () => {
     const changeFilter = jest.fn();
     render(
       <StatisticFilters
@@ -283,7 +283,7 @@ describe("StatisticFilters component", () => {
     });
   });
 
-  test("should be render topN when value === percentile ", () => {
+  test("should be render topN when value === percentile", () => {
     const changeFilter = jest.fn();
     render(
       <StatisticFilters

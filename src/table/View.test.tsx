@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen} from "@testing-library/react";
 import View from "./View";
 
 describe("View topN", () => {
@@ -58,7 +58,7 @@ describe("View topN", () => {
   });
 });
 describe("View  range", () => {
-  test("should be render highlighted table at Range ", () => {
+  test("should be render highlighted table at Range", () => {
     render(
       <View
         filter={{ type: "range", option: { min: -100, max: 100 } }}
@@ -74,7 +74,7 @@ describe("View  range", () => {
 });
 
 describe("View  percentile", () => {
-  test("should be render table at percentile ", () => {
+  test("should be render table at percentile", () => {
     render(
       <View
         filter={{ type: "percentile", option: { min: 0, max: 100 } }}

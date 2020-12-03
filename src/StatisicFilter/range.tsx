@@ -27,7 +27,7 @@ const Range = ({
       const numValue = getValue(event);
       changeRange([numValue, maxValue]);
     },
-    [minValue, maxValue]
+    [changeRange, maxValue]
   );
 
   const changeMaxRange = useCallback(
@@ -35,7 +35,7 @@ const Range = ({
       const numValue = getValue(event);
       changeRange([minValue, numValue]);
     },
-    [minValue, maxValue]
+    [changeRange, minValue]
   );
 
   return (

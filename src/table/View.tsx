@@ -42,7 +42,7 @@ const View = ({ filter, changeFilter }: View) => {
         });
       }
     },
-    [filter.type, changeFilter]
+    [filter.type, changeFilter, data2D]
   );
 
   return (

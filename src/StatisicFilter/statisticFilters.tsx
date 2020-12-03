@@ -36,7 +36,7 @@ const StatisticFilters = ({
         changeFilter({ type: "range", option: { min: -100, max: 100 } });
       }
     },
-    []
+    [changeFilter]
   );
 
   return (

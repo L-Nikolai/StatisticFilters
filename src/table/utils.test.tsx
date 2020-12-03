@@ -4,10 +4,8 @@ import {
   get2DData,
   getTopN,
   getHighlightPercentile,
-  getPercentile,
 } from "./utils";
 import Chance from "chance";
-import { DataItem } from "./Row";
 
 jest.mock("chance", () => {
   const mockInteger = jest.fn();
@@ -25,7 +23,7 @@ describe("utils", () => {
     jest.resetAllMocks();
   });
   describe("get2DData utils", () => {
-    test("shoold be accept data and issue an array ", () => {
+    test("shoold be accept data and issue an array", () => {
       chanceInstance.integer.mockReturnValue(2);
 
       const result = get2DData(2, 2);
@@ -43,7 +41,7 @@ describe("utils", () => {
     });
   });
 
-  describe("getHighlightTopN utils ", () => {
+  describe("getHighlightTopN utils", () => {
     test("shoold return array", () => {
       const array = get2DData(1, 1);
 
@@ -90,7 +88,7 @@ describe("utils", () => {
     });
   });
 
-  describe("getHighlightRange utils ", () => {
+  describe("getHighlightRange utils", () => {
     test("shoold return higlight array", () => {
       let i = 0;
       chanceInstance.integer.mockImplementation(() => ++i);
@@ -110,7 +108,7 @@ describe("utils", () => {
     });
   });
 
-  describe("getHighlightPercentile utils ", () => {
+  describe("getHighlightPercentile utils", () => {
     test("shoold return higlight array", () => {
       let i = 0;
       chanceInstance.integer.mockImplementation(() => ++i);

@@ -31,7 +31,7 @@ const Percentile = ({
 
       changePercentile([numValue, secondPercentileValue]);
     },
-    [firstPercentileValue, secondPercentileValue]
+    [changePercentile, secondPercentileValue]
   );
 
   const onSecondChange = useCallback(
@@ -40,7 +40,7 @@ const Percentile = ({
 
       changePercentile([firstPercentileValue, numValue]);
     },
-    [firstPercentileValue, secondPercentileValue]
+    [changePercentile, firstPercentileValue]
   );
 
   return (
