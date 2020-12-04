@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen} from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import View from "./View";
 
 describe("View topN", () => {
@@ -24,9 +24,9 @@ describe("View topN", () => {
       />
     );
 
-    const viewElement = screen.getAllByRole(/cell/);
+    const viewElements = screen.getAllByRole(/cell/);
 
-    expect(viewElement.length).toEqual(100);
+    expect(viewElements.length).toEqual(100);
   });
 
   test("should be 10 elements is grey then topN = 90", () => {
@@ -36,10 +36,10 @@ describe("View topN", () => {
         changeFilter={() => {}}
       />
     );
-    const viewElement = screen.getAllByRole(/cell/);
+    const viewElements = screen.getAllByRole(/cell/);
 
     expect(
-      viewElement.filter((elem) => elem.style.color === "grey").length
+      viewElements.filter((elem) => elem.style.color === "grey").length
     ).toEqual(10);
   });
 
@@ -50,11 +50,30 @@ describe("View topN", () => {
         changeFilter={() => {}}
       />
     );
-    const viewElement = screen.getAllByRole(/cell/);
+    const viewElements = screen.getAllByRole(/cell/);
 
     expect(
-      viewElement.filter((elem) => elem.style.color === "blue").length
+      viewElements.filter((elem) => elem.style.color === "blue").length
     ).toEqual(3);
+  });
+
+  test("should trigger changeFilter then click on cell", () => {
+    const handleClick = jest.fn();
+    render(
+      <View
+        filter={{ type: "topN", option: { value: 3 } }}
+        changeFilter={handleClick}
+      />
+    );
+    const viewElement = screen.getAllByLabelText(/cell/)[0];
+
+    fireEvent.click(viewElement, { currentTarget: { innerText: "1" } });
+
+    expect(handleClick.mock.calls.length).toEqual(1);
+    expect(handleClick.mock.calls[0][0]).toEqual({
+      type: "topN",
+      option: { value: 0 },
+    });
   });
 });
 describe("View  range", () => {
@@ -86,5 +105,19 @@ describe("View  percentile", () => {
     expect(
       viewElement.filter((elem) => elem.style.color === "blue").length
     ).toEqual(100);
+  });
+
+  test("should be colored one element then percentile(99,100)", () => {
+    render(
+      <View
+        filter={{ type: "percentile", option: { min: 99, max: 100 } }}
+        changeFilter={() => {}}
+      />
+    );
+    const viewElements = screen.getAllByRole(/cell/);
+
+    expect(
+      viewElements.filter((elem) => elem.style.color === "blue").length
+    ).toEqual(1);
   });
 });

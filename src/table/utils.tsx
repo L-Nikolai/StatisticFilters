@@ -101,8 +101,19 @@ export const get2DData = (
   return date;
 };
 
-export const getTopN = (data: DataItem[][], dataElem: number) => {
+export const getSortIndex = (data: DataItem[][], dataElem: number) => {
   const date = sortData(data);
+  let indexTopN = 0;
+  for (let i = 0; i < date.length; i++) {
+    if (dataElem === date[i].value) {
+      indexTopN = i + 1;
+    }
+  }
+  return indexTopN;
+};
+
+export const getReverseSortIndex = (data: DataItem[][], dataElem: number) => {
+  const date = sortData(data).reverse();
   let indexTopN = 0;
   for (let i = 0; i < date.length; i++) {
     if (dataElem === date[i].value) {

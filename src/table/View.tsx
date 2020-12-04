@@ -5,8 +5,9 @@ import {
   get2DData,
   getHighlightTopN,
   getHighlightRange,
-  getTopN,
+  getSortIndex,
   getHighlightPercentile,
+  getReverseSortIndex,
 } from "./utils";
 
 interface View {
@@ -32,17 +33,53 @@ const View = ({ filter, changeFilter }: View) => {
 
   const handleClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
+      const shift = event.shiftKey;
       const value = event.currentTarget.innerText;
       const numValue = parseInt(value, 10);
-
       if (filter.type === "topN") {
         changeFilter({
           type: "topN",
-          option: { value: getTopN(data2D, numValue) },
+          option: { value: getSortIndex(data2D, numValue) },
         });
+      } else if (filter.type === "percentile") {
+        if (shift) {
+          changeFilter({
+            type: "percentile",
+            option: {
+              min: getReverseSortIndex(data2D, numValue),
+              max: filter.option.max,
+            },
+          });
+        } else {
+          changeFilter({
+            type: "percentile",
+            option: {
+              min: filter.option.min,
+              max: getReverseSortIndex(data2D, numValue),
+            },
+          });
+        }
+      } else if (filter.type === "range") {
+        if (shift) {
+          changeFilter({
+            type: "range",
+            option: {
+              min: numValue,
+              max: filter.option.max,
+            },
+          });
+        } else {
+          changeFilter({
+            type: "range",
+            option: {
+              min: filter.option.min,
+              max: numValue,
+            },
+          });
+        }
       }
     },
-    [filter.type, changeFilter, data2D]
+    [filter, changeFilter, data2D]
   );
 
   return (

@@ -2,8 +2,8 @@ import {
   getHighlightTopN,
   getHighlightRange,
   get2DData,
-  getTopN,
   getHighlightPercentile,
+  getSortIndex,
 } from "./utils";
 import Chance from "chance";
 
@@ -154,7 +154,7 @@ describe("utils", () => {
       chanceInstance.integer.mockImplementation(() => ++i);
       const array = get2DData(2, 2);
 
-      const result = getTopN(array, array[0][1].value);
+      const result = getSortIndex(array, array[0][1].value);
 
       expect(result).toEqual(3);
     });

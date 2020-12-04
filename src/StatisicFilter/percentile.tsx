@@ -47,13 +47,13 @@ const Percentile = ({
     <>
       <Input
         isValid={isValid}
-        defaultValue={0}
+        value={firstPercentileValue}
         onChange={onFirstChange}
         label="inputfirst"
       />
       <Input
         isValid={isValid}
-        defaultValue={100}
+        value={secondPercentileValue}
         onChange={onSecondChange}
         label="inputsecond"
       />

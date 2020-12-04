@@ -41,13 +41,13 @@ const Range = ({
   return (
     <>
       <Input
-        defaultValue={-100}
+        value={minValue}
         onChange={changeMinRange}
         isValid={isValid}
         label="firstInputRange"
       />
       <Input
-        defaultValue={100}
+        value={maxValue}
         onChange={changeMaxRange}
         isValid={isValid}
         label="secondInputRange"
