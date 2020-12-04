@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import TopN from "./topN";
 import Percentile from "./percentile";
 import Range from "./range";
+import { State, Action } from "../Reducer";
 
 type PercentileFilter = {
   type: "percentile";
@@ -12,61 +13,61 @@ type TopNFilter = { type: "topN"; option: { value: number } };
 export type Filter = PercentileFilter | TopNFilter | RangeFilter;
 
 interface StatisticFilters {
-  filter: Filter;
-  changeFilter: (value: Filter) => void;
   minRange: number;
   maxRange: number;
+  state: State;
+  dispath: (value: Action) => void;
 }
 
 const StatisticFilters = ({
-  filter,
-  changeFilter,
   minRange,
   maxRange,
+  state,
+  dispath,
 }: StatisticFilters) => {
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
       const { value } = event.target;
 
       if (value === "percentile") {
-        changeFilter({ type: "percentile", option: { min: 0, max: 100 } });
+        dispath({ type: "changeType", payload: "percentile" });
       } else if (value === "topN") {
-        changeFilter({ type: "topN", option: { value: 0 } });
+        dispath({ type: "changeType", payload: "topN" });
       } else {
-        changeFilter({ type: "range", option: { min: -100, max: 100 } });
+        dispath({ type: "changeType", payload: "range" });
       }
     },
-    [changeFilter]
+    [dispath]
   );
 
   return (
     <>
-      <select onChange={handleChange} value={filter.type} aria-label="select">
+      <select onChange={handleChange} value={state.type} aria-label="select">
         <option value="percentile">Percentile</option>
         <option value="topN">TopN</option>
         <option value="range">Range</option>
       </select>{" "}
-      {filter.type === "percentile" ? (
+      {state.type === "percentile" ? (
         <Percentile
-          firstPercentileValue={filter.option.min}
-          secondPercentileValue={filter.option.max}
+          firstPercentileValue={state.minPercentileValue}
+          secondPercentileValue={state.maxPercentileValue}
           changePercentile={([min, max]) => {
-            changeFilter({ type: "percentile", option: { min, max } });
+            dispath({ type: "changeValues", payload: [min, max] });
           }}
         />
-      ) : filter.type === "topN" ? (
+      ) : state.type === "topN" ? (
         <TopN
-          value={filter.option.value}
+          value={state.topN}
           changeValue={(value) => {
-            changeFilter({ type: "topN", option: { value } });
+            dispath({ type: "changeTopN", payload: value });
           }}
         />
       ) : (
         <Range
-          minValue={filter.option.min}
-          maxValue={filter.option.max}
+          minValue={state.minRangeValue}
+          maxValue={state.maxRangeValue}
           changeRange={([min, max]) => {
-            changeFilter({ type: "range", option: { min, max } });
+            dispath({ type: "changeValues", payload: [min, max] });
           }}
           minRange={minRange}
           maxRange={maxRange}
