@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import Row, { DataItem } from "./Row";
-import { Filter } from "../StatisicFilter/statisticFilters";
+import {State, Action} from '../Reducer'
 import {
   get2DData,
   getHighlightTopN,
@@ -11,22 +11,22 @@ import {
 } from "./utils";
 
 interface View {
-  filter: Filter;
-  changeFilter: (value: Filter) => void;
+  state: State;
+  dispath: (value: Action) => void;
 }
 
-const View = ({ filter, changeFilter }: View) => {
+const View = ({ state, dispath }: View) => {
   const [data2D] = useState(get2DData(10, 10));
   const getHighlightData = (): DataItem[][] => {
-    if (filter.type === "topN") {
-      return getHighlightTopN(data2D, filter.option.value);
-    } else if (filter.type === "range") {
-      return getHighlightRange(data2D, filter.option.min, filter.option.max);
+    if (state.type === "topN") {
+      return getHighlightTopN(data2D, state.topN);
+    } else if (state.type === "range") {
+      return getHighlightRange(data2D, state.minRangeValue, state.maxRangeValue);
     } else {
       return getHighlightPercentile(
         data2D,
-        filter.option.min,
-        filter.option.max
+        state.minPercentileValue,
+        state.maxPercentileValue
       );
     }
   };
@@ -36,50 +36,37 @@ const View = ({ filter, changeFilter }: View) => {
       const shift = event.shiftKey;
       const value = event.currentTarget.innerText;
       const numValue = parseInt(value, 10);
-      if (filter.type === "topN") {
-        changeFilter({
-          type: "topN",
-          option: { value: getSortIndex(data2D, numValue) },
+      if (state.type === "topN") {
+        dispath({
+          type: "changeTopN",
+          payload:  getSortIndex(data2D, numValue) ,
         });
-      } else if (filter.type === "percentile") {
+      } else if (state.type === "percentile") {
         if (shift) {
-          changeFilter({
-            type: "percentile",
-            option: {
-              min: getReverseSortIndex(data2D, numValue),
-              max: filter.option.max,
-            },
-          });
+          dispath({
+            type: "changeValues",
+            payload: [getReverseSortIndex(data2D, numValue), state.maxPercentileValue]});
         } else {
-          changeFilter({
-            type: "percentile",
-            option: {
-              min: filter.option.min,
-              max: getReverseSortIndex(data2D, numValue),
-            },
-          });
+          dispath({
+            type: "changeValues",
+            payload:[state.minPercentileValue,getReverseSortIndex(data2D, numValue)]             },
+      );
         }
-      } else if (filter.type === "range") {
+      } else if (state.type === "range") {
         if (shift) {
-          changeFilter({
-            type: "range",
-            option: {
-              min: numValue,
-              max: filter.option.max,
-            },
+          dispath({
+            type: "changeValues",
+            payload:[numValue,state.maxRangeValue]
           });
         } else {
-          changeFilter({
-            type: "range",
-            option: {
-              min: filter.option.min,
-              max: numValue,
-            },
+          dispath({
+            type: "changeValues",
+            payload:[state.maxRangeValue,numValue] 
           });
         }
       }
     },
-    [filter, changeFilter, data2D]
+    [state.type, state.maxPercentileValue, state.minPercentileValue, state.maxRangeValue, dispath, data2D]
   );
 
   return (

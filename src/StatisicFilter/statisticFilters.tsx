@@ -4,14 +4,6 @@ import Percentile from "./percentile";
 import Range from "./range";
 import { State, Action } from "../Reducer";
 
-type PercentileFilter = {
-  type: "percentile";
-  option: { min: number; max: number };
-};
-type RangeFilter = { type: "range"; option: { min: number; max: number } };
-type TopNFilter = { type: "topN"; option: { value: number } };
-export type Filter = PercentileFilter | TopNFilter | RangeFilter;
-
 interface StatisticFilters {
   minRange: number;
   maxRange: number;
@@ -19,6 +11,7 @@ interface StatisticFilters {
   dispath: (value: Action) => void;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 const StatisticFilters = ({
   minRange,
   maxRange,

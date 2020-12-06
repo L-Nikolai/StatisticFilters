@@ -1,15 +1,12 @@
 import React, { useReducer, useState } from "react";
 import { reducer, State } from "./Reducer";
-import StatisticFilters, { Filter } from "./StatisicFilter";
+import StatisticFilters from "./StatisicFilter";
 import View from "./table";
 
 const App = () => {
   const minRange = -100;
   const maxRange = 100;
-  const [filter, changeFilter] = useState<Filter>({
-    type: "percentile",
-    option: { min: 0, max: 100 },
-  });
+
 
   const initialState: State = {
     type: "percentile",
@@ -23,8 +20,8 @@ const App = () => {
   return (
     <>
       <View
-        filter={filter}
-        changeFilter={changeFilter}
+        state={state}
+        dispath={dispath}
       />
       <StatisticFilters
         minRange={minRange}

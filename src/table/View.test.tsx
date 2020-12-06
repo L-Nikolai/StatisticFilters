@@ -6,8 +6,15 @@ describe("View topN", () => {
   test("should be rendered table", () => {
     render(
       <View
-        filter={{ type: "topN", option: { value: 0 } }}
-        changeFilter={() => {}}
+      state = {{
+        type: 'topN',
+        topN : 0,
+        minRangeValue : 0,
+        maxRangeValue :0,
+        minPercentileValue : 0,
+        maxPercentileValue : 0
+      }}
+      dispath = {()=>{}}      
       />
     );
 
@@ -19,8 +26,15 @@ describe("View topN", () => {
   test("should be rendered table 10x10", () => {
     render(
       <View
-        filter={{ type: "topN", option: { value: 0 } }}
-        changeFilter={() => {}}
+      state = {{
+        type: 'topN',
+        topN : 0,
+        minRangeValue : 0,
+        maxRangeValue :0,
+        minPercentileValue : 0,
+        maxPercentileValue : 0
+      }}
+      dispath = {()=>{}}      
       />
     );
 
@@ -32,8 +46,15 @@ describe("View topN", () => {
   test("should be 10 elements is grey then topN = 90", () => {
     render(
       <View
-        filter={{ type: "topN", option: { value: 90 } }}
-        changeFilter={() => {}}
+      state = {{
+        type: 'topN',
+        topN : 90,
+        minRangeValue : 0,
+        maxRangeValue :0,
+        minPercentileValue : 0,
+        maxPercentileValue : 0
+      }}
+      dispath = {()=>{}}      
       />
     );
     const viewElements = screen.getAllByRole(/cell/);
@@ -46,8 +67,15 @@ describe("View topN", () => {
   test("should be 3 elements is blye then topN =3", () => {
     render(
       <View
-        filter={{ type: "topN", option: { value: 3 } }}
-        changeFilter={() => {}}
+      state = {{
+        type: 'topN',
+        topN : 3,
+        minRangeValue : 0,
+        maxRangeValue :0,
+        minPercentileValue : 0,
+        maxPercentileValue : 0
+      }}
+      dispath = {()=>{}}      
       />
     );
     const viewElements = screen.getAllByRole(/cell/);
@@ -61,8 +89,15 @@ describe("View topN", () => {
     const handleClick = jest.fn();
     render(
       <View
-        filter={{ type: "topN", option: { value: 3 } }}
-        changeFilter={handleClick}
+      state = {{
+        type: 'topN',
+        topN : 0,
+        minRangeValue : 0,
+        maxRangeValue :0,
+        minPercentileValue : 0,
+        maxPercentileValue : 0
+      }}
+      dispath = {handleClick}      
       />
     );
     const viewElement = screen.getAllByLabelText(/cell/)[0];
@@ -71,8 +106,8 @@ describe("View topN", () => {
 
     expect(handleClick.mock.calls.length).toEqual(1);
     expect(handleClick.mock.calls[0][0]).toEqual({
-      type: "topN",
-      option: { value: 0 },
+      type: "changeTopN",
+      payload: 0,
     });
   });
 });
@@ -80,8 +115,15 @@ describe("View  range", () => {
   test("should be render highlighted table at Range", () => {
     render(
       <View
-        filter={{ type: "range", option: { min: -100, max: 100 } }}
-        changeFilter={() => {}}
+      state = {{
+        type: 'range',
+        topN : 0,
+        minRangeValue : -100,
+        maxRangeValue :100,
+        minPercentileValue : 0,
+        maxPercentileValue : 0
+      }}
+      dispath = {()=>{}}      
       />
     );
     const viewElement = screen.getAllByRole(/cell/);
@@ -96,8 +138,15 @@ describe("View  percentile", () => {
   test("should be render table at percentile", () => {
     render(
       <View
-        filter={{ type: "percentile", option: { min: 0, max: 100 } }}
-        changeFilter={() => {}}
+      state = {{
+        type: 'percentile',
+        topN : 0,
+        minRangeValue : 0,
+        maxRangeValue :0,
+        minPercentileValue : 0,
+        maxPercentileValue : 100
+      }}
+      dispath = {()=>{}}      
       />
     );
     const viewElement = screen.getAllByRole(/cell/);
@@ -110,8 +159,15 @@ describe("View  percentile", () => {
   test("should be colored one element then percentile(99,100)", () => {
     render(
       <View
-        filter={{ type: "percentile", option: { min: 99, max: 100 } }}
-        changeFilter={() => {}}
+      state = {{
+        type: 'percentile',
+        topN : 0,
+        minRangeValue : 0,
+        maxRangeValue :0,
+        minPercentileValue : 99,
+        maxPercentileValue : 100
+      }}
+      dispath = {()=>{}}      
       />
     );
     const viewElements = screen.getAllByRole(/cell/);
