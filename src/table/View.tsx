@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import Row, { DataItem } from "./Row";
-import {State, Action} from '../Reducer'
+import { State, Action } from "../Reducer";
 import {
   get2DData,
   getHighlightTopN,
@@ -21,7 +21,11 @@ const View = ({ state, dispath }: View) => {
     if (state.type === "topN") {
       return getHighlightTopN(data2D, state.topN);
     } else if (state.type === "range") {
-      return getHighlightRange(data2D, state.minRangeValue, state.maxRangeValue);
+      return getHighlightRange(
+        data2D,
+        state.minRangeValue,
+        state.maxRangeValue
+      );
     } else {
       return getHighlightPercentile(
         data2D,
@@ -39,34 +43,48 @@ const View = ({ state, dispath }: View) => {
       if (state.type === "topN") {
         dispath({
           type: "changeTopN",
-          payload:  getSortIndex(data2D, numValue) ,
+          payload: getSortIndex(data2D, numValue),
         });
       } else if (state.type === "percentile") {
         if (shift) {
           dispath({
             type: "changeValues",
-            payload: [getReverseSortIndex(data2D, numValue), state.maxPercentileValue]});
+            payload: [
+              getReverseSortIndex(data2D, numValue),
+              state.maxPercentileValue,
+            ],
+          });
         } else {
           dispath({
             type: "changeValues",
-            payload:[state.minPercentileValue,getReverseSortIndex(data2D, numValue)]             },
-      );
+            payload: [
+              state.minPercentileValue,
+              getReverseSortIndex(data2D, numValue),
+            ],
+          });
         }
       } else if (state.type === "range") {
         if (shift) {
           dispath({
             type: "changeValues",
-            payload:[numValue,state.maxRangeValue]
+            payload: [numValue, state.maxRangeValue],
           });
         } else {
           dispath({
             type: "changeValues",
-            payload:[state.maxRangeValue,numValue] 
+            payload: [state.maxRangeValue, numValue],
           });
         }
       }
     },
-    [state.type, state.maxPercentileValue, state.minPercentileValue, state.maxRangeValue, dispath, data2D]
+    [
+      state.type,
+      state.maxPercentileValue,
+      state.minPercentileValue,
+      state.maxRangeValue,
+      dispath,
+      data2D,
+    ]
   );
 
   return (

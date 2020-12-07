@@ -3,10 +3,10 @@ import { reducer, State } from "./Reducer";
 const defaultState: State = {
   type: "percentile",
   topN: 0,
-  minRange: 0,
-  maxRange: 100,
-  minPercentile: 0,
-  maxPercentile: 100,
+  minRangeValue: -100,
+  maxRangeValue: 100,
+  minPercentileValue: 0,
+  maxPercentileValue: 100,
 };
 
 describe("App reducer", () => {
@@ -26,8 +26,8 @@ describe("App reducer", () => {
     expect(state).toEqual({
       ...defaultState,
       type: "percentile",
-      minPercentile: 10,
-      maxPercentile: 90,
+      minPercentileValue: 10,
+      maxPercentileValue: 90,
     });
   });
 
@@ -39,8 +39,8 @@ describe("App reducer", () => {
     expect(state).toEqual({
       ...defaultState,
       type: "range",
-      minRange: 10,
-      maxRange: 90,
+      minRangeValue: 10,
+      maxRangeValue: 90,
     });
   });
 
