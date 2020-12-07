@@ -6,17 +6,28 @@ interface Input {
   label: string;
   value?: number;
   defaultValue?: number;
+  disabled: boolean;
 }
-const Input = ({ isValid, label, onChange, value, defaultValue }: Input) => {
+const Input = ({
+  isValid,
+  label,
+  onChange,
+  value,
+  defaultValue,
+  disabled,
+}: Input) => {
   return (
-    <input
-      className={styles.input_stile + " " + (isValid ? "" : styles.invalid)}
-      type="number"
-      aria-label={label}
-      onChange={onChange}
-      defaultValue={defaultValue}
-      value={value}
-    />
+    <>
+      <input
+        className={styles.input_stile + " " + (isValid ? "" : styles.invalid)}
+        type="number"
+        aria-label={label}
+        onChange={onChange}
+        defaultValue={defaultValue}
+        value={value}
+        disabled={disabled}
+      />
+    </>
   );
 };
 

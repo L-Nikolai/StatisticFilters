@@ -1,5 +1,6 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import Input from "./input";
+import { DisableContext } from "../App";
 
 interface Percentile {
   firstPercentileValue: number;
@@ -21,6 +22,8 @@ const Percentile = ({
   secondPercentileValue,
   changePercentile,
 }: Percentile) => {
+  const { disabled } = useContext(DisableContext);
+
   const isValid =
     firstPercentileValue < secondPercentileValue &&
     checkRange(firstPercentileValue, secondPercentileValue);
@@ -50,12 +53,14 @@ const Percentile = ({
         value={firstPercentileValue}
         onChange={onFirstChange}
         label="inputfirst"
+        disabled={disabled}
       />
       <Input
         isValid={isValid}
         value={secondPercentileValue}
         onChange={onSecondChange}
         label="inputsecond"
+        disabled={disabled}
       />
     </>
   );

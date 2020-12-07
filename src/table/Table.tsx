@@ -10,12 +10,12 @@ import {
   getReverseSortIndex,
 } from "./utils";
 
-interface View {
+interface Table {
   state: State;
   dispath: (value: Action) => void;
 }
 
-const View = ({ state, dispath }: View) => {
+const Table = ({ state, dispath }: Table) => {
   const [data2D] = useState(get2DData(10, 10));
   const getHighlightData = (): DataItem[][] => {
     if (state.type === "topN") {
@@ -100,4 +100,4 @@ const View = ({ state, dispath }: View) => {
   );
 };
 
-export default View;
+export default Table;

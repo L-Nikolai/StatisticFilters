@@ -1,6 +1,7 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import Input from "./input";
 import { getValue } from "./percentile";
+import { DisableContext } from "../App";
 
 interface Range {
   minRange: number;
@@ -19,6 +20,7 @@ const Range = ({
   minValue,
   maxValue,
 }: Range) => {
+  const { disabled } = useContext(DisableContext);
   const isValid =
     minValue < maxValue && inRange(minValue, maxValue, minRange, maxRange);
 
@@ -45,12 +47,14 @@ const Range = ({
         onChange={changeMinRange}
         isValid={isValid}
         label="firstInputRange"
+        disabled={disabled}
       />
       <Input
         value={maxValue}
         onChange={changeMaxRange}
         isValid={isValid}
         label="secondInputRange"
+        disabled={disabled}
       />
     </>
   );

@@ -1,11 +1,11 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
-import View from "./View";
+import Table from "./Table";
 
-describe("View topN", () => {
+describe("Table topN", () => {
   test("should be rendered table", () => {
     render(
-      <View
+      <Table
         state={{
           type: "topN",
           topN: 0,
@@ -18,14 +18,14 @@ describe("View topN", () => {
       />
     );
 
-    const viewElement = screen.getByTitle(/table/);
+    const tableElement = screen.getByTitle(/table/);
 
-    expect(viewElement).toBeInTheDocument();
+    expect(tableElement).toBeInTheDocument();
   });
 
   test("should be rendered table 10x10", () => {
     render(
-      <View
+      <Table
         state={{
           type: "topN",
           topN: 0,
@@ -38,14 +38,14 @@ describe("View topN", () => {
       />
     );
 
-    const viewElements = screen.getAllByRole(/cell/);
+    const tableElements = screen.getAllByRole(/cell/);
 
-    expect(viewElements.length).toEqual(100);
+    expect(tableElements.length).toEqual(100);
   });
 
   test("should be 10 elements is grey then topN = 90", () => {
     render(
-      <View
+      <Table
         state={{
           type: "topN",
           topN: 90,
@@ -57,16 +57,16 @@ describe("View topN", () => {
         dispath={() => {}}
       />
     );
-    const viewElements = screen.getAllByRole(/cell/);
+    const tableElements = screen.getAllByRole(/cell/);
 
     expect(
-      viewElements.filter((elem) => elem.style.color === "grey").length
+      tableElements.filter((elem) => elem.style.color === "grey").length
     ).toEqual(10);
   });
 
   test("should be 3 elements is blye then topN =3", () => {
     render(
-      <View
+      <Table
         state={{
           type: "topN",
           topN: 3,
@@ -78,17 +78,17 @@ describe("View topN", () => {
         dispath={() => {}}
       />
     );
-    const viewElements = screen.getAllByRole(/cell/);
+    const tableElements = screen.getAllByRole(/cell/);
 
     expect(
-      viewElements.filter((elem) => elem.style.color === "blue").length
+      tableElements.filter((elem) => elem.style.color === "blue").length
     ).toEqual(3);
   });
 
   test("should trigger changeFilter then click on cell", () => {
     const handleClick = jest.fn();
     render(
-      <View
+      <Table
         state={{
           type: "topN",
           topN: 0,
@@ -100,9 +100,9 @@ describe("View topN", () => {
         dispath={handleClick}
       />
     );
-    const viewElement = screen.getAllByLabelText(/cell/)[0];
+    const tableElement = screen.getAllByLabelText(/cell/)[0];
 
-    fireEvent.click(viewElement, { currentTarget: { innerText: "1" } });
+    fireEvent.click(tableElement, { currentTarget: { innerText: "1" } });
 
     expect(handleClick.mock.calls.length).toEqual(1);
     expect(handleClick.mock.calls[0][0]).toEqual({
@@ -111,10 +111,10 @@ describe("View topN", () => {
     });
   });
 });
-describe("View  range", () => {
+describe("Table  range", () => {
   test("should be render highlighted table at Range", () => {
     render(
-      <View
+      <Table
         state={{
           type: "range",
           topN: 0,
@@ -126,18 +126,18 @@ describe("View  range", () => {
         dispath={() => {}}
       />
     );
-    const viewElement = screen.getAllByRole(/cell/);
+    const tableElement = screen.getAllByRole(/cell/);
 
     expect(
-      viewElement.filter((elem) => elem.style.color === "blue").length
+      tableElement.filter((elem) => elem.style.color === "blue").length
     ).toEqual(100);
   });
 });
 
-describe("View  percentile", () => {
+describe("Table  percentile", () => {
   test("should be render table at percentile", () => {
     render(
-      <View
+      <Table
         state={{
           type: "percentile",
           topN: 0,
@@ -149,16 +149,16 @@ describe("View  percentile", () => {
         dispath={() => {}}
       />
     );
-    const viewElement = screen.getAllByRole(/cell/);
+    const tableElement = screen.getAllByRole(/cell/);
 
     expect(
-      viewElement.filter((elem) => elem.style.color === "blue").length
+      tableElement.filter((elem) => elem.style.color === "blue").length
     ).toEqual(100);
   });
 
   test("should be colored one element then percentile(99,100)", () => {
     render(
-      <View
+      <Table
         state={{
           type: "percentile",
           topN: 0,
@@ -170,10 +170,10 @@ describe("View  percentile", () => {
         dispath={() => {}}
       />
     );
-    const viewElements = screen.getAllByRole(/cell/);
+    const tableElements = screen.getAllByRole(/cell/);
 
     expect(
-      viewElements.filter((elem) => elem.style.color === "blue").length
+      tableElements.filter((elem) => elem.style.color === "blue").length
     ).toEqual(1);
   });
 });
